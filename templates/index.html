@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Hands Free Code</title>
+
+    <!-- <link rel="stylesheet" href="/static/codemirror-5.36.0/lib/codemirror.css"> -->
+</head>
+<body>
+    <textarea name="codeArea" id="codeAr" cols="50" rows="5"># Hi, your code will appear here</textarea>
+
+    <div id="changeMe">To be changed by server!</div>
+    <!-- <script src="/static/codemirror-5.36.0/lib/codemirror.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js">
+
+    </script>
+    <script type="text/javascript">
+    // var editor = CodeMirror.fromTextArea(codeAr, {
+    //     lineNumbers: true
+    // });
+    $(document).ready(function() {
+      // while(true) {
+        setTimeout(function() {
+          // $.get('/code', function(res) {
+          //   console.log(res);
+          //   $('#codeAr').val(res);
+          // });
+          axios.get('/code')
+            .then(function(res) {
+              console.log(res);
+              $('#codeAr').val(res.data);
+
+            }).catch(function(err) {
+              console.log('GET request failed!');
+            })
+        }, 1000);
+      // }
+    });
+    </script>
+</body>
+</html>
