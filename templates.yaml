@@ -14,6 +14,10 @@ class_one_prop: The class you wrote is named '{{ class_name }}' and has the prop
 
 class_two_props: The class you wrote is named '{{ class_name }}' and has the property '{{ property_one }}' and {{ property_two }}.
 
-program: Create {{ type }} called {{ prog_name }}.
+program: Create program named '{{ prog_name }}'.
+
+function: Create function named '{{ func_name }}'.
 
 while: The loop you wrote was 'while {{ text }}'.
+
+method_call: The request you wrote would call method named '{{ name }}' with parameters '{{ params }}'
