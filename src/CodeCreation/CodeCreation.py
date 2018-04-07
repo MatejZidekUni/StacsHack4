@@ -1,12 +1,15 @@
 def createFile(name):
-    pass
+    print("made file '" + name + "'")
+
 def saveFile():
-    pass
+    print("save file")
+
 def run():
     saveFile()
     run()
 
 def appendLine(content):
-    pass
+    print("+" + content)
+
 def changeLine(lineNum, content):
-    pass
+    print(lineNum + " > " + content)
