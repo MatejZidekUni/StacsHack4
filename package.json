@@ -1,0 +1,11 @@
+{
+  "name": "StacsHack4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MatejZidekUni/StacsHack4.git",
+  "author": "Ryosuke Minami <ryosukem13@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "codemirror": "^5.36.0"
+  }
+}
