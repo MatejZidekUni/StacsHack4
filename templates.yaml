@@ -1,0 +1,13 @@
+welcome: Hi there! What would you like to code?
+
+if_then_short_conditional: The conditional you wrote was 'if {{ first_value }} then {{ if_true }}'.
+
+if_else_short_conditional: The conditional you wrote was 'if {{ first_value }} then {{ if_true }} else {{ if_false }}'.
+
+if_then: The conditional you wrote was 'if {{ first_value }} equals {{ second_value }} then {{ if_true }}'.
+
+if_else: The conditional you wrote was 'if {{ first_value }} equals {{ second_value }} then {{ if_true }} else {{ if_false }}'.
+
+program: Create {{ type }} called {{ prog_name }}.
+
+while: The loop you wrote was 'while {{ text }}'.

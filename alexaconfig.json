@@ -1,0 +1,359 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "program writer",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "CreateIntent",
+                    "slots": [
+                        {
+                            "name": "verb",
+                            "type": "verb"
+                        },
+                        {
+                            "name": "name",
+                            "type": "name"
+                        },
+                        {
+                            "name": "type",
+                            "type": "type"
+                        }
+                    ],
+                    "samples": [
+                        "{verb} a {type}",
+                        "{verb} a {type} named {name}",
+                        "{verb} a {type}  {name}"
+                    ]
+                },
+                {
+                    "name": "ConditionalIntent",
+                    "slots": [
+                        {
+                            "name": "condition",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "if_true",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "if_false",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "comparator",
+                            "type": "ComparatorSlot"
+                        },
+                        {
+                            "name": "first_value",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "second_value",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "write if {first_value} {comparator} {second_value} then {if_true} else {if_false}",
+                        "if {first_value} {comparator} {second_value} then {if_true} else {if_false}"
+                    ]
+                },
+                {
+                    "name": "WhileLoopIntent",
+                    "slots": [
+                        {
+                            "name": "first_value",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "comparator",
+                            "type": "ComparatorSlot"
+                        },
+                        {
+                            "name": "second_value",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "condition",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "boolean",
+                            "type": "BooleanSlot"
+                        }
+                    ],
+                    "samples": [
+                        "loop while {first_value} {comparator} {second_value}",
+                        "loop while {condition} is {boolean}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "verb",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "create"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "write"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "make"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "name",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "world"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "apple"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "abc"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "foo"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "flow"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "test"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "main"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "program"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "hello"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TextSlot",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "whatever"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "this_is_good"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "apple"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "what"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "ryosuke"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "dasha"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "."
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "text"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ComparatorSlot",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "is in"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "greater than or equals"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "less than or equals"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "contains"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "has"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "is"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "less than or equal to"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "less than"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "greater than or equal to"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "greater than"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "equals"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "type",
+                    "values": [
+                        {
+                            "id": "0",
+                            "name": {
+                                "value": "function"
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "program"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "BooleanSlot",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "False"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "True"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "CreateIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "verb",
+                            "type": "verb",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "name",
+                            "type": "name",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.80196735360.715021723388"
+                            }
+                        },
+                        {
+                            "name": "type",
+                            "type": "type",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.80196735360.715021723388",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the name?"
+                    }
+                ]
+            }
+        ]
+    }
+}
