@@ -52,6 +52,30 @@
                     "name": "WhileLoopIntent",
                     "slots": [],
                     "samples": []
+                },
+                {
+                    "name": "ClassIntent",
+                    "slots": [
+                        {
+                            "name": "class_name",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "property_one",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "property_two",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "set up a class named {class_name} with properties {property_one} and {property_two}",
+                        "make a class named {class_name} with property {property_one}",
+                        "create a class named {class_name}",
+                        "make a class called {class_name} ",
+                        "create a class called {class_name} "
+                    ]
                 }
             ],
             "types": [
@@ -158,6 +182,36 @@
                 {
                     "name": "ComparatorSlot",
                     "values": [
+                        {
+                            "name": {
+                                "value": "is smaller than"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "is bigger than"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "is greater then or equal to"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "is less than or equal to"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "is greater than"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "is less than"
+                            }
+                        },
                         {
                             "name": {
                                 "value": "contains"
