@@ -1,7 +1,7 @@
 """
-    successful commands are pushed to the command_queueue
-    if no names are supplied to new projects, functions then random names are generated
-    else  the given name will be used. if the given name is already allocated, then throw err
+successful commands are pushed to the command_queue
+if no names are supplied to new projects, functions then random names are generated
+else  the given name will be used. if the given name is already allocated, then throw err
 """
 
 from random import randint
@@ -15,14 +15,15 @@ used_project_names = []
 projects = []
 cur_project_index = -1
 
+
 def gen_name(name, used):
-    if name and name not in used :
+    if name and name not in used:
         return name
-    elif name :
+    elif name:
         return None
-    else :
+    else:
         n = sample_names[randint(0, len(sample_names)-1)]
-        while n in used :
+        while n in used:
             n += "_" + sample_names[randint(0, len(sample_names)-1)]
         return n
 
