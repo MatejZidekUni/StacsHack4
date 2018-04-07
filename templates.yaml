@@ -29,3 +29,5 @@ function: Create function named '{{ func_name }}'.
 while: The loop you wrote was 'while {{ text }}'.
 
 method_call: The request you wrote would call method named '{{ name }}' with parameters '{{ params }}'
+
+printing: Printing '{{ stuff }}'

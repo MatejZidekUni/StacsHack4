@@ -67,6 +67,7 @@ class CodeBlock:
 
     def make_me_a_function_call(self, funName, args=None, varToAssign=None):
         self.code_content.append(CodeLine(((varToAssign + " = ") if varToAssign else "") + funName + "(" + ([a + ", " for a in args] if args else "") + ")", ["function call", funName], self.tab_level))
+
     def make_me_a_function(self, funName, args=None, internal=None):
         self.code_content.append(CodeLine("def " + funName + ','.join([str(a) for a in args] if args else "") + ":", ["function", funName], self.tab_level))
         if internal:

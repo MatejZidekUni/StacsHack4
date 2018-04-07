@@ -1,8 +1,9 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "write code",
-            "intents": [{
+            "invocationName": "program writer",
+            "intents": [
+                {
                     "name": "AMAZON.CancelIntent",
                     "samples": []
                 },
@@ -15,8 +16,31 @@
                     "samples": []
                 },
                 {
+                    "name": "ProgramIntent",
+                    "slots": [
+                        {
+                            "name": "verb",
+                            "type": "verb"
+                        },
+                        {
+                            "name": "name",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "type",
+                            "type": "type"
+                        }
+                    ],
+                    "samples": [
+                        "{verb} a program",
+                        "{verb} a program named {name}",
+                        "{verb} a program  {name}"
+                    ]
+                },
+                {
                     "name": "ConditionalIntent",
-                    "slots": [{
+                    "slots": [
+                        {
                             "name": "condition",
                             "type": "TextSlot"
                         },
@@ -47,64 +71,9 @@
                     ]
                 },
                 {
-                    "name": "ProgramIntent",
+                    "name": "ClassIntent",
                     "slots": [
                         {
-                            "name": "verb",
-                            "type": "verb"
-                        },
-                        {
-                            "name": "name",
-                            "type": "TextSlot"
-                        },
-                        {
-                            "name": "type",
-                            "type": "type"
-                        }
-                    ],
-                    "samples": [
-                        "{verb} a program",
-                        "{verb} a program named {name}",
-                        "{verb} a program  {name}"
-                    ]
-                },
-                {
-                    "name": "WhileLoopIntent",
-                    "slots": [],
-                    "samples": []
-                },
-                {
-                    "name": "CreateIntent",
-                    "confirmationRequired": false,
-                    "prompts": {},
-                    "slots": [{
-                            "name": "verb",
-                            "type": "verb",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        },
-                        {
-                            "name": "name",
-                            "type": "name",
-                            "confirmationRequired": false,
-                            "elicitationRequired": true,
-                            "prompts": {
-                                "elicitation": "Elicit.Slot.80196735360.715021723388"
-                            }
-                        },
-                        {
-                            "name": "type",
-                            "type": "type",
-                            "confirmationRequired": false,
-                            "elicitationRequired": false,
-                            "prompts": {}
-                        }
-                    ]
-                },
-                {
-                    "name": "ClassIntent",
-                    "slots": [{
                             "name": "class_name",
                             "type": "TextSlot"
                         },
@@ -115,20 +84,112 @@
                         {
                             "name": "property_two",
                             "type": "TextSlot"
+                        },
+                        {
+                            "name": "verb",
+                            "type": "verb"
                         }
                     ],
                     "samples": [
-                        "set up a class named {class_name} with properties {property_one} and {property_two}",
-                        "make a class named {class_name} with property {property_one}",
-                        "create a class named {class_name}",
-                        "make a class called {class_name} ",
-                        "create a class called {class_name} "
+                        "{verb} a class named {class_name} with properties {property_one} and {property_two}",
+                        "{verb} a class named {class_name} with property {property_one}",
+                        "{verb} a class named {class_name}",
+                        "{verb} a class called {class_name} "
+                    ]
+                },
+                {
+                    "name": "WhileLoopIntent",
+                    "slots": [
+                        {
+                            "name": "first_value",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "comparator",
+                            "type": "ComparatorSlot"
+                        },
+                        {
+                            "name": "second_value",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "condition",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "boolean",
+                            "type": "BooleanSlot"
+                        }
+                    ],
+                    "samples": [
+                        "loop while {first_value} {comparator} {second_value}",
+                        "loop while {condition} is {boolean}"
+                    ]
+                },
+                {
+                    "name": "FunctionIntent",
+                    "slots": [
+                        {
+                            "name": "verb",
+                            "type": "verb"
+                        },
+                        {
+                            "name": "name",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "{verb} a function {name}",
+                        "{verb} a function",
+                        "{verb} a function named {name}",
+                        "{verb} a function called {name}"
+                    ]
+                },
+                {
+                    "name": "MethodCallIntent",
+                    "slots": [
+                        {
+                            "name": "name",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "params",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "call method named {name} with parameters {params}",
+                        "call method {name} with parameters {params}"
+                    ]
+                },
+                {
+                    "name": "PrintIntent",
+                    "slots": [
+                        {
+                            "name": "name",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "phrase",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "params",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "print the result of function {name} with parameters {params}",
+                        "print {phrase}",
+                        "print the result of function {name}"
                     ]
                 }
             ],
-            "types": [{
+            "types": [
+                {
                     "name": "verb",
-                    "values": [{
+                    "values": [
+                        {
                             "name": {
                                 "value": "create"
                             }
@@ -146,127 +207,9 @@
                     ]
                 },
                 {
-                    "name": "name",
-                    "values": [{
-                            "name": {
-                                "value": "world"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "apple"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "abc"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "foo"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "flow"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "test"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "main"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "program"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "hello"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "type",
+                    "name": "TextSlot",
                     "values": [
                         {
-                            "id": "0",
-                            "name": {
-                                "value": "function"
-                            }
-                        },
-                        {
-                            "id": "1",
-                            "name": {
-                                "value": "program"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "BooleanSlot",
-                    "values": [{
-                            "name": {
-                                "value": "a is greater than b"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "object exists"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "a equals one"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "false"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "True"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "x double equals 1"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "CodeSlot",
-                    "values": [{
-                            "name": {
-                                "value": "return 0"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "return True"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "print('Hello world')"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "TextSlot",
-                    "values": [{
                             "name": {
                                 "value": "whatever"
                             }
@@ -310,34 +253,20 @@
                 },
                 {
                     "name": "ComparatorSlot",
-                    "values": [{
+                    "values": [
+                        {
                             "name": {
-                                "value": "is smaller than"
+                                "value": "is in"
                             }
                         },
                         {
                             "name": {
-                                "value": "is bigger than"
+                                "value": "greater than or equals"
                             }
                         },
                         {
                             "name": {
-                                "value": "is greater then or equal to"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "is less than or equal to"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "is greater than"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "is less than"
+                                "value": "less than or equals"
                             }
                         },
                         {
@@ -378,6 +307,38 @@
                         {
                             "name": {
                                 "value": "equals"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "type",
+                    "values": [
+                        {
+                            "id": "0",
+                            "name": {
+                                "value": "function"
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "program"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "BooleanSlot",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "False"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "True"
                             }
                         }
                     ]
