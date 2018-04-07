@@ -32,24 +32,32 @@ def write_conditional(first_value, comparator, second_value, if_true, if_false):
     return question(conditional_msg)
 
 
-@ask.intent('ClassIntent')
-def write_class(class_name, property_one, property_two):
-    # If no properties have been given
-    if property_one is None and property_two is None:
-        class_msg = render_template('class_no_props', class_name=class_name)
-
-    # If just one property has been given
-    elif property_two is None:
-        class_msg = render_template('class_one_prop', class_name=class_name, property_one=property_one)
-
-    # If
-
-
-@ask.intent('ProgramIntent')
-def create_program(verb, name):
-    print('program:', name)
-    msg = render_template('program', prog_name=name)
+@ask.intent("CreateIntent")
+def create_program(verb, name, type):
+    if type == "program":
+        print('program:', name)
+        name = name + ".py"
+    else:
+        print('function:', name)
+    if name is None:
+        # call without an optional argument name
+        pass
+    msg = render_template('program', type=type, prog_name=name)
     return question(msg)
+
+
+
+@ask.intent('WhileLoopIntent')
+def while_loop(first_value, comparator, second_value, condition, boolean):
+    if condition is not None and boolean is not None:
+        boolean = True if boolean.lower() == "true" else False
+        text = condition + " is " + str(boolean)
+        while_msg = render_template('while', text=text)
+    elif first_value is not None and comparator is not None and second_value is not None:
+        text = first_value + " " + comparator + " " + second_value
+        while_msg = render_template('while', text=text)
+    return question(while_msg)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
