@@ -1,0 +1,143 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "write code",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "ConditionalIntent",
+                    "slots": [
+                        {
+                            "name": "condition",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "if_true",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "if_false",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "write if {condition} then {if_true} else {if_false}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "BooleanSlot",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "a is greater than b"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "object exists"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "a equals one"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "false"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "True"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "x double equals 1"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "CodeSlot",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "return 0"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "return True"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "print('Hello world')"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "TextSlot",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "whatever"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "this_is_good"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "apple"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "what"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "ryosuke"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "dasha"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "."
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "text"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
