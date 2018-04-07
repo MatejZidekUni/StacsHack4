@@ -32,19 +32,26 @@ def write_conditional(first_value, comparator, second_value, if_true, if_false):
     return question(conditional_msg)
 
 
-@ask.intent("CreateIntent")
-def create_program(verb, name, type):
-    if type == "program":
-        print('program:', name)
-        name = name + ".py"
-    else:
-        print('function:', name)
+@ask.intent("ProgramIntent")
+def create_program(verb, name):
+    print('program:', name)
     if name is None:
         # call without an optional argument name
         pass
-    msg = render_template('program', type=type, prog_name=name)
+    else:
+        name = name + ".py"
+    msg = render_template('program', prog_name=name)
     return question(msg)
 
+
+@ask.intent("FunctionIntent")
+def create_function(verb, name):
+    print('function:', name)
+    if name is None:
+        # call without an optional argument name
+        pass
+    msg = render_template('function', func_name=name)
+    return question(msg)
 
 
 @ask.intent('WhileLoopIntent')
@@ -58,6 +65,34 @@ def while_loop(first_value, comparator, second_value, condition, boolean):
         while_msg = render_template('while', text=text)
     return question(while_msg)
 
+
+@ask.intent("MethodCallIntent")
+def method_call(name, params):
+    parameters = params.split(" and ")
+    text = "parameters are: "
+    for param in parameters:
+        text += "'" + param + "'' "
+    msg = render_template('method_call', name=name, params=text)
+    return question(msg)
+
+
+@ask.intent("PrintIntent")
+def print_function(name, phrase, params):
+    if phrase is not None and name is None and params is None:
+        # print fixed phrase
+        msg = render_template('printing', stuff=phrase)
+    elif name is not None and phrase is None and params is None:
+        # print result of a method call without parameters
+        text = "the result of calling function '" + name + " without parameters'
+        msg = render_template('printing', stuff=text)
+    elif name is not None and params is not None and phrase is None :
+        # print result of a method call with parameters
+        parameters = params.split(" and ")
+        text = "the result of calling function '" + name + " with parameters: '
+        for param in parameters:
+            text += "'" + param + "'' "
+        msg = render_template('printing', stuff=text)
+    return question(msg)
 
 if __name__ == '__main__':
     app.run(debug=True)
