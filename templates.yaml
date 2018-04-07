@@ -8,4 +8,10 @@ if_then: The conditional you wrote was 'if {{ first_value }} equals {{ second_va
 
 if_else: The conditional you wrote was 'if {{ first_value }} equals {{ second_value }} then {{ if_true }} else {{ if_false }}'.
 
+class_no_props: The class you wrote is named '{{ class_name }}'.
+
+class_one_prop: The class you wrote is named '{{ class_name }}' and has the property '{{ property_one }}'.
+
+class_two_props: The class you wrote is named '{{ class_name }}' and has the property '{{ property_one }}' and {{ property_two }}.
+
 program: Create {{ type }} called {{ prog_name }}.
