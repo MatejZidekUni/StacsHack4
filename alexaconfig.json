@@ -16,7 +16,7 @@
                     "samples": []
                 },
                 {
-                    "name": "CreateIntent",
+                    "name": "ProgramIntent",
                     "slots": [
                         {
                             "name": "verb",
@@ -24,7 +24,7 @@
                         },
                         {
                             "name": "name",
-                            "type": "name"
+                            "type": "TextSlot"
                         },
                         {
                             "name": "type",
@@ -32,9 +32,9 @@
                         }
                     ],
                     "samples": [
-                        "{verb} a {type}",
-                        "{verb} a {type} named {name}",
-                        "{verb} a {type}  {name}"
+                        "{verb} a program",
+                        "{verb} a program named {name}",
+                        "{verb} a program  {name}"
                     ]
                 },
                 {
@@ -71,6 +71,33 @@
                     ]
                 },
                 {
+                    "name": "ClassIntent",
+                    "slots": [
+                        {
+                            "name": "class_name",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "property_one",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "property_two",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "verb",
+                            "type": "verb"
+                        }
+                    ],
+                    "samples": [
+                        "{verb} a class named {class_name} with properties {property_one} and {property_two}",
+                        "{verb} a class named {class_name} with property {property_one}",
+                        "{verb} a class named {class_name}",
+                        "{verb} a class called {class_name} "
+                    ]
+                },
+                {
                     "name": "WhileLoopIntent",
                     "slots": [
                         {
@@ -98,6 +125,42 @@
                         "loop while {first_value} {comparator} {second_value}",
                         "loop while {condition} is {boolean}"
                     ]
+                },
+                {
+                    "name": "FunctionIntent",
+                    "slots": [
+                        {
+                            "name": "verb",
+                            "type": "verb"
+                        },
+                        {
+                            "name": "name",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "{verb} a function {name}",
+                        "{verb} a function",
+                        "{verb} a function named {name}",
+                        "{verb} a function called {name}"
+                    ]
+                },
+                {
+                    "name": "MethodCallIntent",
+                    "slots": [
+                        {
+                            "name": "name",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "params",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "call method named {name} with parameters {params}",
+                        "call method {name} with parameters {params}"
+                    ]
                 }
             ],
             "types": [
@@ -117,56 +180,6 @@
                         {
                             "name": {
                                 "value": "make"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "name",
-                    "values": [
-                        {
-                            "name": {
-                                "value": "world"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "apple"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "abc"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "foo"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "flow"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "test"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "main"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "program"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "hello"
                             }
                         }
                     ]
@@ -313,7 +326,7 @@
         "dialog": {
             "intents": [
                 {
-                    "name": "CreateIntent",
+                    "name": "ProgramIntent",
                     "confirmationRequired": false,
                     "prompts": {},
                     "slots": [
@@ -326,7 +339,7 @@
                         },
                         {
                             "name": "name",
-                            "type": "name",
+                            "type": "TextSlot",
                             "confirmationRequired": false,
                             "elicitationRequired": true,
                             "prompts": {
