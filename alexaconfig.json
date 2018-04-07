@@ -161,6 +161,28 @@
                         "call method named {name} with parameters {params}",
                         "call method {name} with parameters {params}"
                     ]
+                },
+                {
+                    "name": "PrintIntent",
+                    "slots": [
+                        {
+                            "name": "name",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "phrase",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "params",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "print the result of function {name} with parameters {params}",
+                        "print {phrase}",
+                        "print the result of function {name}"
+                    ]
                 }
             ],
             "types": [
