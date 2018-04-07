@@ -29,13 +29,13 @@ class API:
         self.project_stack = []
 
     def gen_name(self, name, used):
-        if name and name not in used :
+        if name and name not in used:
             return name
-        elif name :
+        elif name:
             return None
-        else :
+        else:
             n = self.sample_names[randint(0, len(self.sample_names)-1)]
-            while n in used :
+            while n in used:
                 n += "_" + self.sample_names[randint(0, len(self.sample_names)-1)]
             return n
 
