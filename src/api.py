@@ -39,11 +39,6 @@ class API:
                 n += "_" + self.sample_names[randint(0, len(self.sample_names)-1)]
             return n
 
-    def done(self, id):
-        self.command_queue.insert(0, id)
-        print("completed command : " + str(id))
-        return None
-
     ## ---------------------------------------------------------------------
 
     # make new project
@@ -55,7 +50,8 @@ class API:
             return "You have used that name before"
         self.project_stack.insert(0, Project(name))
         self.used_project_names.append(name)
-        return self.done(0.0)
+
+        self.write()
 
     # basically moves the requested project back to the front of the project list
     # id 0.1
@@ -65,7 +61,7 @@ class API:
         proj_i = self.project_stack.index([elem for elem in self.project_stack if elem.name == name])
         proj = self.project_stack.pop(proj_i)
         self.project_stack.insert(0, proj)
-        return self.done(0.1)
+
 
 
     # creates new function
@@ -74,32 +70,61 @@ class API:
         if len(self.project_stack) <= 0:
             self.new_project()
 
-        name = self.gen_name(name, self.used_project_names) #todo
+        name = self.gen_name(name, self.project_stack[0].used_function_names)
 
         the_code = CodeBlock()
         the_code.make_me_a_function(name, args)
         self.project_stack[0].add_code(the_code)
+        self.project_stack[0].used_function_names.append(name)
 
-        self.done(1.0)
+        self.write()
 
+    def jump_up_1(self):
+        if len(self.project_stack) <= 0:
+            self.new_project()
+        self.project_stack[0].exit_codeBlock_one()
 
-    def new_condition(self, if_, then_, else_):
-        self.command_queue.insert(0, 2)
+    def jump_up_all(self):
+        if len(self.project_stack) <= 0:
+            self.new_project()
+        self.project_stack[0].exit_codeBlock_all()
 
-    def new_loop(self, breakCond, loopN):
-        self.command_queue.insert(0, 3)
+    def new_condition(self, ifCondition, thenCode, elifConditions, elifThenCodes):
+        the_code = CodeBlock()
+        the_code.make_me_a_conditional(ifCondition, thenCode, elifConditions, elifThenCodes)
+        self.project_stack[0].add_code(the_code)
 
-    def fill_loop(self, statements):
-        self.command_queue.insert(0, 4)
+        self.write()
 
-    def take_input(self):
-        self.command_queue.insert(0, 5)
+    def new_loop(self, cond, internal=None):
+        the_code = CodeBlock()
+        the_code.make_me_a_loop(cond, internal)
+        self.project_stack[0].add_code(the_code)
 
-    def produce_output(self):
-        self.command_queue.insert(0, 6)
+        self.write()
+
+    def fill_loop(self, internal):
+        if len(self.project_stack) <= 0:
+            print("NO LOOP to fill")
+            return None
+        self.project_stack[0].add_code(internal)
+
+        self.write()
+
+    def produce_output(self, whatever):
+        if len(self.project_stack) <= 0:
+            self.new_project()
+        the_code = CodeBlock.make_me_a_print(whatever)
+        self.project_stack[0].add_code(the_code)
+
+        self.write()
 
     def write(self):
+        print("writing")
         if len(self.project_stack) <= 0:
             self.new_project()
         self.project_stack[0].write_all()
-        self.done(10.0)
+
+## for testing...
+api = API()
+api.new_function("fun", ["argrument"])
