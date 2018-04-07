@@ -8,5 +8,4 @@ if_then: The conditional you wrote was 'if {{ first_value }} equals {{ second_va
 
 if_else: The conditional you wrote was 'if {{ first_value }} equals {{ second_value }} then {{ if_true }} else {{ if_false }}'.
 
-
-program: Create program {{ prog_name }}.py.
+program: Create {{ type }} called {{ prog_name }}.

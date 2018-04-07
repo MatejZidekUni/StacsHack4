@@ -37,15 +37,19 @@ def write_conditional(first_value, comparator, second_value, if_true, if_false):
     return question(conditional_msg)
 
 
+@ask.intent("CreateIntent")
+def create_program(verb, name, type):
+    if type == "program":
+        print('program:', name)
+        name = name + ".py"
+    else:
+        print('function:', name)
+    msg = render_template('program', type=type, prog_name=name)
+    return question(msg)
+
+
 @ask.intent('WhileLoopIntent')
 
-
-
-@ask.intent("ProgramIntent")
-def create_program(verb, name):
-    print('program:', name)
-    msg = render_template('program', prog_name=name)
-    return question(msg)
 
 if __name__ == '__main__':
     app.run(debug=True)
