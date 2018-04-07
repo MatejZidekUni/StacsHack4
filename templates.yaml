@@ -1,0 +1,9 @@
+welcome: Hi there! What would you like to code?
+
+conditional: The conditional you wrote was if {{ condition }} then {{ if_true }} else {{ if_false }}. 
+
+round: Can you repeat the numbers {{ numbers|join(", ") }} backwards?
+
+win: Good job!
+
+lose: Sorry, that's the wrong answer.
