@@ -29,11 +29,29 @@
                         {
                             "name": "if_false",
                             "type": "TextSlot"
+                        },
+                        {
+                            "name": "comparator",
+                            "type": "ComparatorSlot"
+                        },
+                        {
+                            "name": "first_value",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "second_value",
+                            "type": "TextSlot"
                         }
                     ],
                     "samples": [
-                        "write if {condition} then {if_true} else {if_false}"
+                        "write if {first_value} {comparator} {second_value} then {if_true} else {if_false}",
+                        "if {first_value} {comparator} {second_value} then {if_true} else {if_false}"
                     ]
+                },
+                {
+                    "name": "WhileLoopIntent",
+                    "slots": [],
+                    "samples": []
                 }
             ],
             "types": [
@@ -133,6 +151,51 @@
                         {
                             "name": {
                                 "value": "text"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ComparatorSlot",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "contains"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "has"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "is"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "less than or equal to"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "less than"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "greater than or equal to"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "greater than"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "equals"
                             }
                         }
                     ]
