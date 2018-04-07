@@ -5,3 +5,5 @@ if_then: The conditional you wrote was 'if {{ condition }} then {{ if_true }}'.
 if_else: The conditional you wrote was 'if {{ condition }} then {{ if_true }} else {{ if_false }}'.
 
 program: Create {{ type }} called {{ prog_name }}.
+
+loop: The loop you wrote was {{ text }}.
