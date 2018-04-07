@@ -10,4 +10,4 @@ if_else: The conditional you wrote was 'if {{ first_value }} equals {{ second_va
 
 program: Create {{ type }} called {{ prog_name }}.
 
-loop: The loop you wrote was: while {{ text }}.
+while: The loop you wrote was 'while {{ text }}'.

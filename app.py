@@ -39,28 +39,28 @@ def write_conditional(first_value, comparator, second_value, if_true, if_false):
 
 @ask.intent("CreateIntent")
 def create_program(verb, name, type):
-    
     if type == "program":
         print('program:', name)
         name = name + ".py"
     else:
         print('function:', name)
+    if name is None:
+        # call without an optional argument name
+        pass
     msg = render_template('program', type=type, prog_name=name)
     return question(msg)
 
 
 @ask.intent('WhileLoopIntent')
-def while_loop(first, second, third):
-    if third is None:
-        # condition is true/false
-        condition = first
-        boolean =  True if second.lower() == "true" else False
-        text = first + " is " + str(bool)
+def while_loop(first_value, comparator, second_value, condition, boolean):
+    if condition is not None and boolean is not None:
+        boolean = True if boolean.lower() == "true" else False
+        text = condition + " is " + str(boolean)
         while_msg = render_template('while', text=text)
-    elif third is not None:
-        text = first + " " + second + " " + third
+    elif first_value is not None and comparator is not None and second_value is not None:
+        text = first_value + " " + comparator + " " + second_value
         while_msg = render_template('while', text=text)
-
+    return question(while_msg)
 
 if __name__ == '__main__':
     app.run(debug=True)

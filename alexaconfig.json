@@ -74,10 +74,6 @@
                     "name": "WhileLoopIntent",
                     "slots": [
                         {
-                            "name": "condition",
-                            "type": "TextSlot"
-                        },
-                        {
                             "name": "first_value",
                             "type": "TextSlot"
                         },
@@ -87,6 +83,10 @@
                         },
                         {
                             "name": "second_value",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "condition",
                             "type": "TextSlot"
                         },
                         {
@@ -219,6 +219,21 @@
                 {
                     "name": "ComparatorSlot",
                     "values": [
+                        {
+                            "name": {
+                                "value": "is in"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "greater than or equals"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "less than or equals"
+                            }
+                        },
                         {
                             "name": {
                                 "value": "contains"
