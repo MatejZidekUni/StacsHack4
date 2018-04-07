@@ -2,8 +2,7 @@
     "interactionModel": {
         "languageModel": {
             "invocationName": "write code",
-            "intents": [
-                {
+            "intents": [{
                     "name": "AMAZON.CancelIntent",
                     "samples": []
                 },
@@ -17,8 +16,7 @@
                 },
                 {
                     "name": "ConditionalIntent",
-                    "slots": [
-                        {
+                    "slots": [{
                             "name": "condition",
                             "type": "TextSlot"
                         },
@@ -54,9 +52,37 @@
                     "samples": []
                 },
                 {
-                    "name": "ClassIntent",
-                    "slots": [
+                    "name": "CreateIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [{
+                            "name": "verb",
+                            "type": "verb",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
                         {
+                            "name": "name",
+                            "type": "name",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.80196735360.715021723388"
+                            }
+                        },
+                        {
+                            "name": "type",
+                            "type": "type",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        }
+                    ]
+                },
+                {
+                    "name": "ClassIntent",
+                    "slots": [{
                             "name": "class_name",
                             "type": "TextSlot"
                         },
@@ -78,11 +104,94 @@
                     ]
                 }
             ],
-            "types": [
+            "types": [{
+                    "name": "verb",
+                    "values": [{
+                            "name": {
+                                "value": "create"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "write"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "make"
+                            }
+                        }
+                    ]
+                },
                 {
-                    "name": "BooleanSlot",
+                    "name": "name",
+                    "values": [{
+                            "name": {
+                                "value": "world"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "apple"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "abc"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "foo"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "flow"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "test"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "main"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "program"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "hello"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "type",
                     "values": [
                         {
+                            "id": "0",
+                            "name": {
+                                "value": "function"
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "program"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "BooleanSlot",
+                    "values": [{
                             "name": {
                                 "value": "a is greater than b"
                             }
@@ -116,8 +225,7 @@
                 },
                 {
                     "name": "CodeSlot",
-                    "values": [
-                        {
+                    "values": [{
                             "name": {
                                 "value": "return 0"
                             }
@@ -136,8 +244,7 @@
                 },
                 {
                     "name": "TextSlot",
-                    "values": [
-                        {
+                    "values": [{
                             "name": {
                                 "value": "whatever"
                             }
@@ -181,8 +288,7 @@
                 },
                 {
                     "name": "ComparatorSlot",
-                    "values": [
-                        {
+                    "values": [{
                             "name": {
                                 "value": "is smaller than"
                             }
@@ -255,6 +361,17 @@
                     ]
                 }
             ]
-        }
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.80196735360.715021723388",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the name?"
+                    }
+                ]
+            }
+        ]
     }
 }
