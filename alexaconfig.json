@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "write code",
+            "invocationName": "program writer",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -14,6 +14,28 @@
                 {
                     "name": "AMAZON.StopIntent",
                     "samples": []
+                },
+                {
+                    "name": "CreateIntent",
+                    "slots": [
+                        {
+                            "name": "verb",
+                            "type": "verb"
+                        },
+                        {
+                            "name": "name",
+                            "type": "name"
+                        },
+                        {
+                            "name": "type",
+                            "type": "type"
+                        }
+                    ],
+                    "samples": [
+                        "{verb} a {type}",
+                        "{verb} a {type} named {name}",
+                        "{verb} a {type}  {name}"
+                    ]
                 },
                 {
                     "name": "ConditionalIntent",
@@ -50,62 +72,101 @@
                 },
                 {
                     "name": "WhileLoopIntent",
-                    "slots": [],
-                    "samples": []
+                    "slots": [
+                        {
+                            "name": "condition",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "first_value",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "comparator",
+                            "type": "ComparatorSlot"
+                        },
+                        {
+                            "name": "second_value",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "boolean",
+                            "type": "BooleanSlot"
+                        }
+                    ],
+                    "samples": [
+                        "loop while {first_value} {comparator} {second_value}",
+                        "loop while {condition} is {boolean}"
+                    ]
                 }
             ],
             "types": [
                 {
-                    "name": "BooleanSlot",
+                    "name": "verb",
                     "values": [
                         {
                             "name": {
-                                "value": "a is greater than b"
+                                "value": "create"
                             }
                         },
                         {
                             "name": {
-                                "value": "object exists"
+                                "value": "write"
                             }
                         },
                         {
                             "name": {
-                                "value": "a equals one"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "false"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "True"
-                            }
-                        },
-                        {
-                            "name": {
-                                "value": "x double equals 1"
+                                "value": "make"
                             }
                         }
                     ]
                 },
                 {
-                    "name": "CodeSlot",
+                    "name": "name",
                     "values": [
                         {
                             "name": {
-                                "value": "return 0"
+                                "value": "world"
                             }
                         },
                         {
                             "name": {
-                                "value": "return True"
+                                "value": "apple"
                             }
                         },
                         {
                             "name": {
-                                "value": "print('Hello world')"
+                                "value": "abc"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "foo"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "flow"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "test"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "main"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "program"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "hello"
                             }
                         }
                     ]
@@ -199,8 +260,85 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "type",
+                    "values": [
+                        {
+                            "id": "0",
+                            "name": {
+                                "value": "function"
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "program"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "BooleanSlot",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "False"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "True"
+                            }
+                        }
+                    ]
                 }
             ]
-        }
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "CreateIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "verb",
+                            "type": "verb",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        },
+                        {
+                            "name": "name",
+                            "type": "name",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.80196735360.715021723388"
+                            }
+                        },
+                        {
+                            "name": "type",
+                            "type": "type",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.80196735360.715021723388",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "What is the name?"
+                    }
+                ]
+            }
+        ]
     }
 }
