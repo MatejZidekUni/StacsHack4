@@ -5,8 +5,4 @@ if_then: The conditional you wrote was 'if {{ condition }} then {{ if_true }}'.
 if_else: The conditional you wrote was 'if {{ condition }} then {{ if_true }} else {{ if_false }}'.
 
 
-round: Can you repeat the numbers {{ numbers|join(", ") }} backwards?
-
-win: Good job!
-
-lose: Sorry, that's the wrong answer.
+program: Create program {{ prog_name }}.py.
