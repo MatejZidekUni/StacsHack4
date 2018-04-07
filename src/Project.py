@@ -1,3 +1,6 @@
+from src.CodeCreation.CodeCreation import *
+
+
 class Project:
     """A project that is started"""
     name = ""
@@ -9,5 +12,8 @@ class Project:
         self.command_queue = []
         self.used_function_names = []
 
-    def new_function(self):
+        createFile(name)
+        saveFile()
+
+    def change_function(self, name, content):
         pass
