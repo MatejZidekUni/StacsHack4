@@ -17,12 +17,14 @@ def write_conditional(condition, if_true, if_false):
     print('if_true:', if_true)
     print('if_false:', if_false)
     conditional_msg = render_template('conditional', condition=condition, if_true=if_true, if_false=if_false)
-    return statement(conditional_msg)
+    return question(conditional_msg)
 
 
-# @ask.intent('')
-
-
+@ask.intent("ProgramIntent")
+def create_program(verb, name):
+    print('program:', name)
+    msg = render_template('program', prog_name=name)
+    return question(msg)
 
 if __name__ == '__main__':
     app.run(debug=True)
