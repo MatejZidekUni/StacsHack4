@@ -1,4 +1,5 @@
-from src.CodeCreation.CodeCreation import *
+# from src.CodeCreation.CodeCreation import *
+# from handsFreeCode.handsFreeCode.handsFreeCode import *
 
 ## most basic building block
 class CodeLine:
@@ -87,7 +88,7 @@ class CodeBlock:
                 elifThenCode.tab_level += 1
                 self.code_content.append(elifThenCode)
 
-        if len(elifThenCodes) > len(elifConditions) :
+        if len(elifThenCodes) > len(elifConditions):
             self.code_content.append(CodeLine("else: ", ["else"], self.tab_level))
             elifThenCodes[-1].tab_level += 1
             self.code_content.append(elifThenCodes[-1])
@@ -106,7 +107,8 @@ class Project:
         self.command_queue = []
         self.used_function_names = []
 
-        createFile(name)
+        # Just to get rid of an error -- I think we need this!
+        # createFile(name)
 
     def add_code(self, code):
         code.tab_level = 0

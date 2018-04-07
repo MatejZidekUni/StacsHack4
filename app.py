@@ -8,6 +8,17 @@ app = Flask(__name__)
 ask = Ask(app, '/')
 api_instance = API()
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/code', methods=["GET"])
+def get_code():
+    return "Does this text get sent?"
+    # return api_instance.write()
+
+
 @ask.launch
 def new_coding_session():
     welcome_msg = render_template('welcome')
@@ -32,7 +43,9 @@ def new_function(func_name, arg_one, arg_two):
 
     # If the function takes in two arguments
     if arg_one is not None and arg_two is not None:
-        
+        new_func_msg = render_template('func_two_args', func_name=func_name, arg_one=arg_one, arg_two=arg_two)
+
+    return question(new_func_msg)
 
 @ask.intent('ConditionalIntent')
 def write_conditional(first_value, comparator, second_value, if_true, if_false):
@@ -107,12 +120,12 @@ def print_function(name, phrase, params):
         msg = render_template('printing', stuff=phrase)
     elif name is not None and phrase is None and params is None:
         # print result of a method call without parameters
-        text = "the result of calling function '" + name + " without parameters'
+        text = "the result of calling function '" + name + " without parameters"
         msg = render_template('printing', stuff=text)
     elif name is not None and params is not None and phrase is None :
         # print result of a method call with parameters
         parameters = params.split(" and ")
-        text = "the result of calling function '" + name + " with parameters: '
+        text = "the result of calling function '" + name + " with parameters: "
         for param in parameters:
             text += "'" + param + "'' "
         msg = render_template('printing', stuff=text)

@@ -1,6 +1,3 @@
-import requests
-#from handsFreeCode import setCont
-
 def createFile(name):
     print("made file '" + name + "'")
 
