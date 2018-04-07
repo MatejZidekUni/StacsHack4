@@ -2,14 +2,13 @@ var editor = CodeMirror.fromTextArea(codeAr, {
     lineNumbers: true
 });
 
-var request = $.ajax({
-    url: "/get_buffered",
-    type: "GET",
-    dataType: "text/html",
-    success(function(res){
-        console.log(res.text);
-    })
-});
+window.setInterval(updateCode, 2500);
+
+function updateCode(){
+    $.get("/get_buffered", function(data, status){
+        console.log(data);
+    });
+}
 
 /*
 //check for browser support

@@ -9,8 +9,7 @@ def run():
     pass
 
 def appendLine(content):
-    pass
-    #setCont(content)
+    setCont(content)
     #r = requests.post('http://localhost:5000/code', data={"content":content})
 
 def deleteLine(lineNum):
