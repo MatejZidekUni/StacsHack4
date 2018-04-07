@@ -14,6 +14,14 @@ class_one_prop: The class you wrote is named '{{ class_name }}' and has the prop
 
 class_two_props: The class you wrote is named '{{ class_name }}' and has the property '{{ property_one }}' and {{ property_two }}.
 
+new_project: Creating a new project called '{{ project_name }}'.
+
+func_no_args: Writing a new function called '{{ func_name }}'.
+
+func_one_arg: Writing a new function called '{{ func_name }}' with the argument '{{ arg_one }}'.
+
+func_two_args: Writing a new function called '{{ func_name }}' with the arguments '{{ arg_one }}' and '{{ arg_two }}'.
+
 program: Create program named '{{ prog_name }}'.
 
 function: Create function named '{{ func_name }}'.
