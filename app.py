@@ -1,14 +1,38 @@
 from flask import Flask, render_template
 from flask_ask import Ask, statement, question, session
 
+# Local imports
+from src.api import API
+
 app = Flask(__name__)
 ask = Ask(app, '/')
+api_instance = API()
 
 @ask.launch
 def new_coding_session():
     welcome_msg = render_template('welcome')
     return question(welcome_msg)
 
+@ask.intent('NewProjectIntent')
+def new_project(project_name):
+    new_project_msg = render_template('new_project', project_name=project_name)
+    api_instance.new_project(project_name)
+    return question(new_project_msg)
+
+
+@ask.intent('FunctionIntent')
+def new_function(func_name, arg_one, arg_two):
+    # If the function takes in no arguments
+    if arg_one is None and arg_two is None:
+        new_func_msg = render_template('func_no_args', func_name=func_name)
+
+    # If the function takes in one argument
+    if arg_one is not None and arg_two is None:
+        new_func_msg = render_template('func_one_arg', func_name=func_name, arg_one=arg_one)
+
+    # If the function takes in two arguments
+    if arg_one is not None and arg_two is not None:
+        
 
 @ask.intent('ConditionalIntent')
 def write_conditional(first_value, comparator, second_value, if_true, if_false):
