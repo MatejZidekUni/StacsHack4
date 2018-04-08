@@ -229,6 +229,23 @@
                         "initialise a variable {name} to the result of {function} method call",
                         "initialise a variable {name} to the result of {function} function call"
                     ]
+                },
+                {
+                    "name": "ReturnIntent",
+                    "slots": [
+                        {
+                            "name": "name",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "text",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "return {text}",
+                        "return variable {name}"
+                    ]
                 }
             ],
             "types": [

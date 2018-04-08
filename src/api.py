@@ -178,4 +178,9 @@ class API:
         print("API: writing to file.")
         if len(self.project_stack) <= 0:
             self.new_project()
-        self.project_stack[0].write_project_to_file()
+        self.project_stack[0].write_project_all()
+
+# ## for testing...
+# api = API()
+# api.new_function("fun", ["argument"])
+# api.new_loop_for(10)

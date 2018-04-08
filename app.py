@@ -153,6 +153,13 @@ def create_var(name, function, value, params):
         api_instance.create_variable(name, method)
 
 
+@ask.intent("ReturnIntent")
+def create_var(name, text):
+    if name not None:
+        api_instance.return_something(name)
+    elif text not None;
+        api_instance.return_something(text)
+
 @ask.intent("ExitIntent")
 def exit_function(reason):
     api_instance.jump_up_1()
