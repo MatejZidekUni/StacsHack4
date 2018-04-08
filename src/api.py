@@ -88,7 +88,7 @@ class API:
 
     def new_condition(self, ifCondition, thenCode, elifConditions, elifThenCodes):
         the_code = CodeBlock()
-        thenCode = CodeLine(thenCode, ["then conditional"], the_code.tab_level)
+        thenCode = CodeLine(the_code, the_code.tab_level)
         the_code.make_me_a_conditional(ifCondition, thenCode, elifConditions, elifThenCodes)
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].write_project_to_file()
@@ -97,7 +97,7 @@ class API:
 
     def new_loop(self, cond, internal=None):
         the_code = CodeBlock()
-        internal = CodeLine(the_code, ["while"], the_code.tab_level)
+        internal = CodeLine(the_code, the_code.tab_level)
         if internal:
             the_code.make_me_a_loop(cond, internal)
         else:
@@ -146,14 +146,14 @@ class API:
         self.project_stack[0].write_project_to_file()
         self.write()
 
-    def write_project_to_filewrite(self):
-        print("writing")
+    def write(self):
+        print("API: called write")
         if len(self.project_stack) <= 0:
             self.new_project()
         self.project_stack[0].write_project_all()
 
     def write_to_file(self):
-        print("Writing to file.")
+        print("API: writing to file.")
         if len(self.project_stack) <= 0:
             self.new_project()
         self.project_stack[0].write_project_to_file()
