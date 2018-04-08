@@ -49,9 +49,9 @@ class CodeBlock:
                 newList.extend(item.flatten_keywords)
         return newList
 
-    def get_all_lines(self):
+    def get_codeblock_lines(self):
         code_lines = self.flatten_to_codelines()
-        return ''.join(line for line in code_lines)
+        return ''.join(line.to_string() for line in code_lines)
 
 
     def write_all(self):
@@ -140,12 +140,13 @@ class Project:
     def cha_code(self, keywords, newCode):
         pass
 
-    def write_to_file(self):
+    def write_project_to_file(self):
         print('Writing everything to file %s' % self.name)
-        for code in self.all_code:
-            print(code.get_all_lines())
 
-    def write_all(self):
+        for code in self.all_code:
+            print(code.get_codeblock_lines())
+
+    def write_project_all(self):
         print("Called write_all in class project.")
         for code in self.all_code:
             code.write_all()
