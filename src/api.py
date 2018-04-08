@@ -49,7 +49,7 @@ class API:
             return "You have used that name before"
         self.project_stack.insert(0, Project(name))
         self.used_project_names.append(name)
-        self.write()
+        self.write_to_file()
 
     # basically moves the requested project back to the front of the project list
     # id 0.1
@@ -146,11 +146,17 @@ class API:
         self.project_stack[0].add_code(the_code)
         self.write()
 
+    def write_to_file(self):
+        print("Writing to file.")
+        if len(self.project_stack) <= 0:
+            self.new_project()
+        self.project_stack[0].write_project_to_file()
+
     def write(self):
         print("writing")
         if len(self.project_stack) <= 0:
             self.new_project()
-        self.project_stack[0].write_all()
+        self.project_stack[0].write_project_all()
 
 ## for testing...
 api = API()

@@ -1,13 +1,11 @@
 from flask import Flask, render_template, url_for
 from flask_ask import Ask, statement, question, session
-from flask_socketio import SocketIO, emit
 
 # Local imports
 from src.api import API
 
 app = Flask(__name__)
 ask = Ask(app, '/')
-socketio = SocketIO(app)
 api_instance = API()
 
 
@@ -20,18 +18,6 @@ def index():
 def get_code():
     return "Does this text get sent?"
     # return api_instance.write()
-
-
-@socketio.on('connect', namespace='/morecode')
-def socket_connect():
-    print('socket.io connected.')
-    emit('my response', {'data': 'Connected.'})
-
-
-@socketio.on('my event', namespace='/morecode')
-def give_more_code(message):
-    emit('moreofmycode', {'data': message['data']})
-
 
 @ask.launch
 def new_coding_session():
@@ -189,4 +175,4 @@ def sign(comparator):
 
 
 if __name__ == '__main__':
-    socketio.run(app)
+    app.run(debug=True)
