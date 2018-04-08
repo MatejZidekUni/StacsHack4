@@ -34,11 +34,11 @@ class CodeBlock:
     def flatten_to_codelines(self):
         print("Called flatten_to_codelines in CodeBlock.")
         newList = []
-        if len(self.code_content) <= 0:
-            self.code_content.append(CodeLine("pass", self.tab_level))
+        #if len(self.code_content) <= 0:
+        #    self.code_content.append(CodeLine("pass", self.tab_level))
 
         for item in self.code_content:
-            #item.tab_level += self.tab_level
+            item.tab_level += self.tab_level
             if type(item) is CodeLine:
                 print("-line- " + item.to_string() + " : " + str(item.tab_level))
                 newList.append(item)
@@ -141,6 +141,9 @@ class CodeBlock:
 
     def make_me_a_return(self, what=None):
         self.code_content.append(CodeLine("return " + what, self.tab_level))
+
+    def make_me_a_var_incr(self, varName):
+        self.code_content.append(CodeLine(varName + " += 1", self.tab_level))
 
 class Project:
     """A project"""
