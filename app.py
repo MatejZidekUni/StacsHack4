@@ -203,4 +203,4 @@ def sign(comparator):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=3000, debug=True)

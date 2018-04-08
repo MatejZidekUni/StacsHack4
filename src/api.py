@@ -30,7 +30,7 @@ class API:
 
     def appendLinesLive(self, the_code):
         for line in the_code.flatten_to_codelines():
-            appendLine(line)
+            appendLine(line.to_string())
 
     def gen_name(self, name, used):
         if name and name not in used:
