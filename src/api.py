@@ -134,6 +134,19 @@ class API:
         self.project_stack[0].write_project_to_file()
         self.write()
 
+    def return_something(self, what_to_return):
+        the_code = CodeBlock()
+        if len(self.project_stack) <= 0:
+            self.new_project()
+        if type(what_to_return) is CodeLine:
+            what_to_return = what_to_return.to_string()
+
+        the_code.make_me_a_return(what_to_return)
+
+        self.project_stack[0].add_code(the_code)
+        self.project_stack[0].write_project_to_file()
+        self.write()
+
     def call_method(self, name, args=None, inline=None):
         the_code = CodeBlock()
         if len(self.project_stack) <= 0:

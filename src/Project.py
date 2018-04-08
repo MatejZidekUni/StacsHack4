@@ -121,7 +121,7 @@ class CodeBlock:
     # optionally you can provide a list of elifConditions and elifThenCodes
     # --! but the list of elifThenCodes must be at most 1 longer than the list of elifConditions
     def make_me_a_conditional(self, ifCondition, thenCode, elifConditions, elifThenCodes):
-        self.code_content.append(CodeLine("if " + ifCondition + " :",self.tab_level))
+        self.code_content.append(CodeLine("if " + ifCondition + " :", self.tab_level))
         thenCode.tab_level += 1
         self.code_content.append(thenCode)
         if elifConditions:
@@ -135,6 +135,8 @@ class CodeBlock:
                 elifThenCodes[-1].tab_level += self.tab_level
                 self.code_content.append(elifThenCodes[-1])
 
+    def make_me_a_return(self, what=None):
+        self.code_content.append(CodeLine("return " + what, self.tab_level))
 
 class Project:
     """A project"""
