@@ -176,28 +176,35 @@ class Project:
 
     def exit_codeBlock_one(self):
         # if our index is not -1
-        if self.last_codeBlock_index != -1 :
+        if self.last_codeBlock_index != -1:
             # if the index of the inner block is -1
             if self.all_code[self.last_codeBlock_index].last_codeBlock_index == -1:
                 # then we progress to -1 too
                 self.last_codeBlock_index = -1
             # else we move the inner block by 1
             else:
+                #self.exit_codeBlock_one()
                 self.all_code[self.last_codeBlock_index].exit_codeBlock_one()
         # else this shouldn't happen
         else:
             self.last_codeBlock_index = -2
-        self.all_code[self.last_codeBlock_index].exit_codeBlock_one()
+        # self.exit_codeBlock_one()
+        #self.all_code[self.last_codeBlock_index].exit_codeBlock_one()
 
     def exit_codeBlock_all(self):
         self.last_codeBlock_index = -1
 
+    tabcount = [0, 1, 1, 2, 2, 0]
+    tabindex = 0
+
     def write_project_to_file(self):
         print('Writing everything to file %s' % self.name)
         output_file = open(output_path + self.name, 'w')
-
+        global tabindex
         for code in self.all_code:
-            output_file.write(code.to_string())
+            output_file.write('\t' * tabcount[tabindex] + code.to_string().strip())
+            tabindex += 1
+
 
         output_file.close()
 
