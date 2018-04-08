@@ -87,6 +87,9 @@ class API:
         self.project_stack[0].exit_codeBlock_all()
 
     def new_condition(self, ifCondition, thenCode, elifConditions, elifThenCodes):
+        if len(self.project_stack) <= 0:
+            self.new_project()
+
         the_code = CodeBlock()
         thenCode = CodeLine(the_code, the_code.tab_level)
         the_code.make_me_a_conditional(ifCondition, thenCode, elifConditions, elifThenCodes)
@@ -95,13 +98,19 @@ class API:
 
         self.write()
 
-    def new_loop(self, cond, internal=None):
+    def new_loop_while(self, cond, internal=None):
         the_code = CodeBlock()
         internal = CodeLine(the_code, the_code.tab_level)
         if internal:
-            the_code.make_me_a_loop(cond, internal)
+            the_code.make_me_a_loop_while(cond, internal)
         else:
-            the_code.make_me_a_loop(cond)
+            the_code.make_me_a_loop_while(cond)
+        self.project_stack[0].add_code(the_code)
+        self.write()
+
+    def new_loop_for(self, n, internal=None):
+        the_code = CodeBlock()
+        the_code.make_me_a_loop_for(n, internal)
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].write_project_to_file()
         self.write()
@@ -146,14 +155,32 @@ class API:
         self.project_stack[0].write_project_to_file()
         self.write()
 
+<<<<<<< HEAD
     def write(self):
         print("API: called write")
+=======
+    def write_to_file(self):
+        print("Writing to file.")
+        if len(self.project_stack) <= 0:
+            self.new_project()
+        self.project_stack[0].write_project_to_file()
+
+    def write_project_to_filewrite(self):
+        print("writing")
+>>>>>>> 7b8c26458fb45b0bbad7d4154de216097d86ab28
         if len(self.project_stack) <= 0:
             self.new_project()
         self.project_stack[0].write_project_all()
 
+<<<<<<< HEAD
     def write_to_file(self):
         print("API: writing to file.")
         if len(self.project_stack) <= 0:
             self.new_project()
         self.project_stack[0].write_project_to_file()
+=======
+## for testing...
+api = API()
+api.new_function("fun", ["argument"])
+api.new_loop_for(10)
+>>>>>>> 7b8c26458fb45b0bbad7d4154de216097d86ab28
