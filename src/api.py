@@ -91,7 +91,7 @@ class API:
             self.new_project()
 
         the_code = CodeBlock()
-        thenCode = CodeLine(the_code, the_code.tab_level)
+        thenCode = CodeLine(the_code.to_string(), the_code.tab_level)
         the_code.make_me_a_conditional(ifCondition, thenCode, elifConditions, elifThenCodes)
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].write_project_to_file()
@@ -155,32 +155,14 @@ class API:
         self.project_stack[0].write_project_to_file()
         self.write()
 
-<<<<<<< HEAD
     def write(self):
         print("API: called write")
-=======
-    def write_to_file(self):
-        print("Writing to file.")
-        if len(self.project_stack) <= 0:
-            self.new_project()
-        self.project_stack[0].write_project_to_file()
-
-    def write_project_to_filewrite(self):
-        print("writing")
->>>>>>> 7b8c26458fb45b0bbad7d4154de216097d86ab28
         if len(self.project_stack) <= 0:
             self.new_project()
         self.project_stack[0].write_project_all()
 
-<<<<<<< HEAD
     def write_to_file(self):
         print("API: writing to file.")
         if len(self.project_stack) <= 0:
             self.new_project()
         self.project_stack[0].write_project_to_file()
-=======
-## for testing...
-api = API()
-api.new_function("fun", ["argument"])
-api.new_loop_for(10)
->>>>>>> 7b8c26458fb45b0bbad7d4154de216097d86ab28
