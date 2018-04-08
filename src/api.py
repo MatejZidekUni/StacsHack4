@@ -14,6 +14,7 @@
 
 from random import randint
 from src.Project import *
+from src.handsFreeCode.handsFreeCode.codeCreation import appendLine
 
 class API:
     command_queue = []
@@ -26,6 +27,10 @@ class API:
         self.command_queue = []
         self.used_project_names = []
         self.project_stack = []
+
+    def appendLinesLive(self, the_code):
+        for line in the_code.flatten_to_codelines():
+            appendLine(line)
 
     def gen_name(self, name, used):
         if name and name not in used:
@@ -60,6 +65,7 @@ class API:
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].write_project_to_file()
         self.write()
+        self.appendLinesLive(the_code)
 
     # basically moves the requested project back to the front of the project list
     # id 0.1
@@ -85,6 +91,7 @@ class API:
         self.project_stack[0].write_project_to_file()
 
         self.write()
+        self.appendLinesLive(the_code)
 
     def jump_up_1(self):
         if len(self.project_stack) <= 0:
@@ -107,6 +114,7 @@ class API:
         self.project_stack[0].write_project_to_file()
 
         self.write()
+        self.appendLinesLive(the_code)
 
     def new_loop_while(self, cond, internal=None):
         the_code = CodeBlock()
@@ -118,6 +126,7 @@ class API:
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].write_project_to_file()
         self.write()
+        self.appendLinesLive(the_code)
 
     def new_loop_for(self, n, internal=None):
         the_code = CodeBlock()
@@ -125,6 +134,7 @@ class API:
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].write_project_to_file()
         self.write()
+        self.appendLinesLive(the_code)
 
     def fill_loop(self, internal):
         if len(self.project_stack) <= 0:
@@ -133,6 +143,7 @@ class API:
         self.project_stack[0].add_code(internal)
         self.project_stack[0].write_project_to_file()
         self.write()
+        self.appendLinesLive(the_code)
 
     def produce_output(self, whatever):
         the_code = CodeBlock()
@@ -144,6 +155,7 @@ class API:
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].write_project_to_file()
         self.write()
+        self.appendLinesLive(the_code)
 
     def return_something(self, what_to_return):
         the_code = CodeBlock()
@@ -157,6 +169,7 @@ class API:
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].write_project_to_file()
         self.write()
+        self.appendLinesLive(the_code)
 
     def call_method(self, name, args=None, inline=None):
         the_code = CodeBlock()
@@ -167,6 +180,7 @@ class API:
             self.project_stack[0].add_code(the_code)
             self.project_stack[0].write_project_to_file()
             self.write()
+            self.appendLinesLive(the_code)
         else:
             return res
 
@@ -178,6 +192,7 @@ class API:
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].write_project_to_file()
         self.write()
+        self.appendLinesLive(the_code)
 
     def write(self):
         print("API: called write")
