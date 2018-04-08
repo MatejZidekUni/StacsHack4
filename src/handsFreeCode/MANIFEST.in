@@ -1,3 +1,0 @@
-graft handsFreeCode/templates
-graft handsFreeCode/static
-include handsFreeCode/schema.sql

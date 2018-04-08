@@ -60,6 +60,15 @@ class CodeBlock:
         internal.tab_level += 1
         self.code_content.append(internal);
 
+    def make_method_call(self, method_name, args=None):
+        str_args = ""
+        if args:
+            for i in range(len(args)):
+                str_args += arg
+                if i != len(args) - 1:
+                    str_args += ", "
+        self.code_content.append(CodeLine(method_name + "(" + str_args + ")", ["method_call"], self.tab_level))
+
     def make_me_a_print(self, varName):
         self.code_content.append(CodeLine("print(" + varName + ")", ["print"], self.tab_level))
 
@@ -83,7 +92,7 @@ class CodeBlock:
         thenCode.tab_level += 1
         self.code_content.append(thenCode)
         if elifConditions :
-            for elifCond,elifThenCode in zip(elifConditions, elifThenCodes):
+            for elifCond, elifThenCode in zip(elifConditions, elifThenCodes):
                 self.code_content.append(CodeLine("elif " + elifCond + ":", ["elif", "else if"], self.tab_level))
                 elifThenCode.tab_level += 1
                 self.code_content.append(elifThenCode)
