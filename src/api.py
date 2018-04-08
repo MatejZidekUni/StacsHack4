@@ -85,19 +85,28 @@ class API:
         self.project_stack[0].exit_codeBlock_all()
 
     def new_condition(self, ifCondition, thenCode, elifConditions, elifThenCodes):
+        if len(self.project_stack) <= 0:
+            self.new_project()
+
         the_code = CodeBlock()
         thenCode = CodeLine(thenCode, ["then conditional"], the_code.tab_level)
         the_code.make_me_a_conditional(ifCondition, thenCode, elifConditions, elifThenCodes)
         self.project_stack[0].add_code(the_code)
         self.write()
 
-    def new_loop(self, cond, internal=None):
+    def new_loop_while(self, cond, internal=None):
         the_code = CodeBlock()
         internal = CodeLine(the_code, ["while"], the_code.tab_level)
         if internal:
-            the_code.make_me_a_loop(cond, internal)
+            the_code.make_me_a_loop_while(cond, internal)
         else:
-            the_code.make_me_a_loop(cond)
+            the_code.make_me_a_loop_while(cond)
+        self.project_stack[0].add_code(the_code)
+        self.write()
+
+    def new_loop_for(self, n, internal=None):
+        the_code = CodeBlock()
+        the_code.make_me_a_loop_for(n, internal)
         self.project_stack[0].add_code(the_code)
         self.write()
 
@@ -142,3 +151,8 @@ class API:
         if len(self.project_stack) <= 0:
             self.new_project()
         self.project_stack[0].write_all()
+
+## for testing...
+api = API()
+api.new_function("fun", ["argument"])
+api.new_loop_for(10)
