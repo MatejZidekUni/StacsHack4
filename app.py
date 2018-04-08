@@ -96,7 +96,7 @@ def while_loop(first_value, comparator, second_value, condition, boolean):
         text = first_value + " " + comparator + " " + second_value
         while_msg = render_template('while', text=text)
         cond = first_value + " " + sign(comparator) + " " + second_value
-    api_instance.new_loop(cond)
+    api_instance.new_loop_while(cond)
     return question(while_msg)
 
 

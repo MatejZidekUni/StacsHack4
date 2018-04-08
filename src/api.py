@@ -100,12 +100,13 @@ class API:
 
     def new_loop_while(self, cond, internal=None):
         the_code = CodeBlock()
-        internal = CodeLine(the_code, the_code.tab_level)
+        internal = CodeLine(the_code.to_string(), the_code.tab_level)
         if internal:
             the_code.make_me_a_loop_while(cond, internal)
         else:
             the_code.make_me_a_loop_while(cond)
         self.project_stack[0].add_code(the_code)
+        self.project_stack[0].write_project_to_file()
         self.write()
 
     def new_loop_for(self, n, internal=None):

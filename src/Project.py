@@ -62,10 +62,15 @@ class CodeBlock:
             print("  go deeper")
             # increase tab level if we are going deeper in
             codeBlock.tab_level += 1
-            self.code_content[self.last_codeBlock_index].add_code(codeBlock)
+            if type(self.code_content[self.last_codeBlock_index]) == CodeBlock:
+                self.code_content[self.last_codeBlock_index].add_code(codeBlock)
+            else:
+                self.code_content.append(codeBlock)
         else:
             print("  we are at tab level " + str(codeBlock.tab_level))
             self.code_content.append(codeBlock)
+        self.last_codeBlock_index = self.code_content.index(codeBlock) # leave index on internal block
+
 
     # makes a while loop. takes exitCond:string, internal:codeBlock
     def make_me_a_loop_while(self, cond, internal=None):
@@ -75,6 +80,7 @@ class CodeBlock:
         else:
             internal.tab_level += self.tab_level
         self.code_content.append(internal)
+
         self.last_codeBlock_index = self.code_content.index(internal) # leave index on internal block
 
     # makes a while loop. takes exitCond:string, internal:codeBlock
