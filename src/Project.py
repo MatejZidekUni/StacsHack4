@@ -4,11 +4,9 @@ from src.CodeCreation.CodeCreation import *
 class CodeLine:
     tab_level = 0
     line_string = ""
-    keywords = []
 
-    def __init__(self, line_string, keywords, tab_level=0):
+    def __init__(self, line_string, tab_level=0):
         self.line_string = line_string
-        self.keywords = keywords
         self.tab_level = tab_level
 
     def to_string(self):
@@ -20,8 +18,6 @@ class CodeBlock:
     code_content = []
     # general tab level of code Block
     tab_level = 0
-    # concatination of all keywords of all lines and sub-blocks
-    keywords = []
 
     last_codeBlock_index = -1
 
@@ -40,22 +36,15 @@ class CodeBlock:
     def flatten_to_CodeLines(self):
         newList = []
         if len(self.code_content) <= 0:
-            return CodeLine("pass", ["pass", "empty"], self.tab_level)
+            self.code_content.append(CodeLine("pass", self.tab_level))
 
         for item in self.code_content:
+            item.tab_level += self.tab_level
             if type(item) is CodeLine:
+                print("-line- " + item.to_string() + " : " + str(item.tab_level))
                 newList.append(item)
             else:
                 newList.extend(item.flatten_to_CodeLines())
-        return newList
-
-    def flatten_keywords(self):
-        newList = []
-        for item in self.code_content:
-            if type(item) is CodeLine:
-                newList.extend(item.keywords)
-            else:
-                newList.extend(item.flatten_keywords())
         return newList
 
     def write_all(self):
@@ -64,42 +53,55 @@ class CodeBlock:
             appendLine(line.to_string())
 
     def add_code(self, codeBlock):
-        if(self.last_codeBlock_index > 0):
+        print("codeBlock.addCode()")
+        if(self.last_codeBlock_index >= 0):
+            print("  go deeper")
             # increase tab level if we are going deeper in
             codeBlock.tab_level += 1
-            self.code_content[self.last_codeBlock_index].code_content.append(codeBlock)
+            self.code_content[self.last_codeBlock_index].add_code(codeBlock)
         else:
+            print("  we are at tab level " + str(codeBlock.tab_level))
             self.code_content.append(codeBlock)
 
     # makes a while loop. takes exitCond:string, internal:codeBlock
-    def make_me_a_loop(self, cond, internal):
-        self.code_content.append(CodeLine("while " + cond + ":", ["loop"], self.tab_level))
+    def make_me_a_loop_while(self, cond, internal=None):
+        self.code_content.append(CodeLine("while " + cond + ":", self.tab_level))
         if internal is None:
             internal = CodeBlock(self.tab_level+1)
         else:
-            internal.tab_level += 1
+            internal.tab_level += self.tab_level
         self.code_content.append(internal)
         self.last_codeBlock_index = self.code_content.index(internal) # leave index on internal block
 
+    # makes a while loop. takes exitCond:string, internal:codeBlock
+    def make_me_a_loop_for(self, n, internal=None):
+        self.code_content.append(CodeLine("for i in range(" + str(n) + "):", self.tab_level))
+        if internal is None:
+            internal = CodeBlock(self.tab_level + 1)
+        else:
+            internal.tab_level += self.tab_level
+        self.code_content.append(internal)
+        self.last_codeBlock_index = self.code_content.index(internal)  # leave index on internal block
+
     def make_me_a_print(self, whatever):
-        self.code_content.append(CodeLine("print(" + whatever + ")", ["print"], self.tab_level))
+        self.code_content.append(CodeLine("print(" + whatever + ")", self.tab_level))
 
         self.last_codeBlock_index = -1
 
     def make_me_a_sort(self, listName):
-        self.code_content.append(CodeLine(listName + " = sorted(" + listName + ")", ["sort", "list"], self.tab_level))
+        self.code_content.append(CodeLine(listName + " = sorted(" + listName + ")", self.tab_level))
 
         self.last_codeBlock_index = -1
 
     def make_me_a_function_call(self, funName, args=None, varToAssign=None):
         self.code_content.append(CodeLine(((varToAssign + " = ") if varToAssign else "") + funName
-                                          + "(" + ([a + ", " for a in args] if args else "") + ")", ["function call", funName], self.tab_level))
+                                          + "(" + ([a + ", " for a in args] if args else "") + ")", self.tab_level))
         self.last_codeBlock_index = -1
 
     def make_me_a_function(self, funName, args=None, internal=None):
-        self.code_content.append(CodeLine("def " + funName + "( "+ ','.join([str(a) for a in args] if args else "") + ") :", ["function", funName], self.tab_level))
+        self.code_content.append(CodeLine("def " + funName + "( "+ ','.join([str(a) for a in args] if args else "") + "):", self.tab_level))
         if internal:
-            internal.tab_level += 1
+            internal.tab_level += self.tab_level
         else:
             internal = CodeBlock(self.tab_level+1)
         self.code_content.append(internal)
@@ -109,18 +111,18 @@ class CodeBlock:
     # optionally you can provide a list of elifConditions and elifThenCodes
     # --! but the list of elifThenCodes must be at most 1 longer than the list of elifConditions
     def make_me_a_conditional(self, ifCondition, thenCode, elifConditions, elifThenCodes):
-        self.code_content.append(CodeLine("if " + ifCondition + " :", ["if"],self.tab_level))
+        self.code_content.append(CodeLine("if " + ifCondition + " :",self.tab_level))
         thenCode.tab_level += 1
         self.code_content.append(thenCode)
         if elifConditions :
-            for elifCond,elifThenCode in zip(elifConditions, elifThenCodes):
-                self.code_content.append(CodeLine("elif " + elifCond + ":", ["elif", "else if"], self.tab_level))
-                elifThenCode.tab_level += 1
+            for elifCond, elifThenCode in zip(elifConditions, elifThenCodes):
+                self.code_content.append(CodeLine("elif " + elifCond + ":", self.tab_level))
+                elifThenCode.tab_level += self.tab_level
                 self.code_content.append(elifThenCode)
 
         if len(elifThenCodes) > len(elifConditions) :
-            self.code_content.append(CodeLine("else: ", ["else"], self.tab_level))
-            elifThenCodes[-1].tab_level += 1
+            self.code_content.append(CodeLine("else: ", self.tab_level))
+            elifThenCodes[-1].tab_level += self.tab_level
             self.code_content.append(elifThenCodes[-1])
 
 
@@ -130,7 +132,7 @@ class Project:
     used_function_names = []
     # bunch of code Blocks
     all_code = []
-    last_codeBlock_index = -1;
+    last_codeBlock_index = -1
 
     def __init__(self, name):
         self.name = name
@@ -142,9 +144,11 @@ class Project:
     def add_code(self, code):
         code.tab_level = 1
         if(self.last_codeBlock_index > -1):
+            print("going into codeBlock of project")
             self.all_code[self.last_codeBlock_index].add_code(code)
-        self.all_code.append(code)
-        self.last_codeBlock_index = self.all_code.index(code)
+        else:
+            self.all_code.append(code)
+            self.last_codeBlock_index = self.all_code.index(code)
 
     def exit_codeBlock_one(self):
         # if our index is not -1
@@ -164,13 +168,6 @@ class Project:
     def exit_codeBlock_all(self):
         self.last_codeBlock_index = -1
 
-    def rem_code(self, keywords):
-        pass
-
-    def cha_code(self, keywords, newCode):
-        pass
-
     def write_all(self):
-        print("write_all")
         for code in self.all_code:
             code.write_all()

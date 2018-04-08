@@ -90,15 +90,25 @@ class API:
         self.project_stack[0].exit_codeBlock_all()
 
     def new_condition(self, ifCondition, thenCode, elifConditions, elifThenCodes):
+        if len(self.project_stack) <= 0:
+            self.new_project()
+
         the_code = CodeBlock()
         the_code.make_me_a_conditional(ifCondition, thenCode, elifConditions, elifThenCodes)
         self.project_stack[0].add_code(the_code)
 
         self.write()
 
-    def new_loop(self, cond, internal=None):
+    def new_loop_while(self, cond, internal=None):
         the_code = CodeBlock()
-        the_code.make_me_a_loop(cond, internal)
+        the_code.make_me_a_loop_while(cond, internal)
+        self.project_stack[0].add_code(the_code)
+
+        self.write()
+
+    def new_loop_for(self, n, internal=None):
+        the_code = CodeBlock()
+        the_code.make_me_a_loop_for(n, internal)
         self.project_stack[0].add_code(the_code)
 
         self.write()
@@ -114,7 +124,18 @@ class API:
     def produce_output(self, whatever):
         if len(self.project_stack) <= 0:
             self.new_project()
-        the_code = CodeBlock.make_me_a_print(whatever)
+        the_code = CodeBlock()
+        the_code.make_me_a_print(whatever)
+        self.project_stack[0].add_code(the_code)
+
+        self.write()
+
+    def call_function(self, funName, args=None, varToAssign=None):
+        if len(self.project_stack) <= 0:
+            self.new_project()
+
+        the_code = CodeBlock()
+        the_code.make_me_a_function_call(funName, args, varToAssign)
         self.project_stack[0].add_code(the_code)
 
         self.write()
@@ -128,3 +149,4 @@ class API:
 ## for testing...
 api = API()
 api.new_function("fun", ["argrument"])
+api.new_loop_for(10)
