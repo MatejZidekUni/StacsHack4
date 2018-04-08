@@ -50,7 +50,6 @@ class API:
             return "You have used that name before"
         self.project_stack.insert(0, Project(name))
         self.used_project_names.append(name)
-
         self.write()
 
     # basically moves the requested project back to the front of the project list
@@ -61,7 +60,6 @@ class API:
         proj_i = self.project_stack.index([elem for elem in self.project_stack if elem.name == name])
         proj = self.project_stack.pop(proj_i)
         self.project_stack.insert(0, proj)
-
 
 
     # creates new function
@@ -76,7 +74,6 @@ class API:
         the_code.make_me_a_function(name, args)
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].used_function_names.append(name)
-
         self.write()
 
     def jump_up_1(self):
@@ -91,16 +88,19 @@ class API:
 
     def new_condition(self, ifCondition, thenCode, elifConditions, elifThenCodes):
         the_code = CodeBlock()
+        thenCode = CodeLine(thenCode, ["then conditional"], the_code.tab_level)
         the_code.make_me_a_conditional(ifCondition, thenCode, elifConditions, elifThenCodes)
         self.project_stack[0].add_code(the_code)
-
         self.write()
 
     def new_loop(self, cond, internal=None):
         the_code = CodeBlock()
-        the_code.make_me_a_loop(cond, internal)
+        internal = CodeLine(the_code, ["while"], the_code.tab_level)
+        if internal:
+            the_code.make_me_a_loop(cond, internal)
+        else:
+            the_code.make_me_a_loop(cond)
         self.project_stack[0].add_code(the_code)
-
         self.write()
 
     def fill_loop(self, internal):
@@ -108,15 +108,35 @@ class API:
             print("NO LOOP to fill")
             return None
         self.project_stack[0].add_code(internal)
-
         self.write()
 
     def produce_output(self, whatever):
+        the_code = CodeBlock()
         if len(self.project_stack) <= 0:
             self.new_project()
-        the_code = CodeBlock.make_me_a_print(whatever)
+        the_code.make_me_a_print(whatever)
         self.project_stack[0].add_code(the_code)
+        self.write()
 
+    def call_method(self, name, args=None, inline=None):
+        the_code = CodeBlock()
+        if len(self.project_stack) <= 0:
+            self.new_project()
+        res = the_code.make_method_call(name, args, inline=inline)
+        if not inline:
+            self.project_stack[0].add_code(the_code)
+            self.write()
+        else:
+            return res
+
+
+
+    def create_variable(self, name, value):
+        the_code = CodeBlock()
+        if len(self.project_stack) <= 0:
+            self.new_project()
+        the_code.create_a_var(name, value)
+        self.project_stack[0].add_code(the_code)
         self.write()
 
     def write(self):
@@ -124,7 +144,3 @@ class API:
         if len(self.project_stack) <= 0:
             self.new_project()
         self.project_stack[0].write_all()
-
-## for testing...
-api = API()
-api.new_function("fun", ["argrument"])

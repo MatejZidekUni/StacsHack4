@@ -1,1 +1,0 @@
-from .handsFreeCode import app

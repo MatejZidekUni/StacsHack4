@@ -16,12 +16,6 @@ class_two_props: The class you wrote is named '{{ class_name }}' and has the pro
 
 new_project: Creating a new project called '{{ project_name }}'.
 
-func_no_args: Writing a new function called '{{ func_name }}'.
-
-func_one_arg: Writing a new function called '{{ func_name }}' with the argument '{{ arg_one }}'.
-
-func_two_args: Writing a new function called '{{ func_name }}' with the arguments '{{ arg_one }}' and '{{ arg_two }}'.
-
 program: Create program named '{{ prog_name }}'.
 
 function: Create function named '{{ func_name }}'.
@@ -31,3 +25,9 @@ while: The loop you wrote was 'while {{ text }}'.
 method_call: The request you wrote would call method named '{{ name }}' with parameters '{{ params }}'
 
 printing: Printing '{{ stuff }}'
+
+func_no_args: Writing a new function called '{{ func_name }}'.
+
+func_with_args: Writing a new function called '{{ func_name }}' with arguments '{{ text }}'.
+
+variable: Initialising a variable to {{ val }.

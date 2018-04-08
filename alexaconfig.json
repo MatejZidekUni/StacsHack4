@@ -136,9 +136,15 @@
                         {
                             "name": "name",
                             "type": "TextSlot"
+                        },
+                        {
+                            "name": "params",
+                            "type": "TextSlot"
                         }
                     ],
                     "samples": [
+                        "{verb} a function with {params}",
+                        "{verb} a function {name} with {params}",
                         "{verb} a function {name}",
                         "{verb} a function",
                         "{verb} a function named {name}",
@@ -182,6 +188,46 @@
                         "print the result of function {name} with parameters {params}",
                         "print {phrase}",
                         "print the result of function {name}"
+                    ]
+                },
+                {
+                    "name": "ExitIntent",
+                    "slots": [
+                        {
+                            "name": "structure",
+                            "type": "structure"
+                        }
+                    ],
+                    "samples": [
+                        "exit {structure}",
+                        "exit"
+                    ]
+                },
+                {
+                    "name": "CreateVarIntent",
+                    "slots": [
+                        {
+                            "name": "name",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "function",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "value",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "params",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "initialise a variable {name} to the result of {function} method call with parameters {params}",
+                        "initialise a variable {name} to {value}",
+                        "initialise a variable {name} to the result of {function} method call",
+                        "initialise a variable {name} to the result of {function} function call"
                     ]
                 }
             ],
@@ -339,6 +385,66 @@
                         {
                             "name": {
                                 "value": "True"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "structure",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "class"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "function"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "method"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "else if"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "elif"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "else"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "if"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "while"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "while loop"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "for loop"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "loop"
                             }
                         }
                     ]
