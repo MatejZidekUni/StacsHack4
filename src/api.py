@@ -72,6 +72,8 @@ class API:
         the_code.make_me_a_function(name, args)
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].used_function_names.append(name)
+        self.project_stack[0].write_project_to_file()
+
         self.write()
 
     def jump_up_1(self):
@@ -89,6 +91,8 @@ class API:
         thenCode = CodeLine(thenCode, ["then conditional"], the_code.tab_level)
         the_code.make_me_a_conditional(ifCondition, thenCode, elifConditions, elifThenCodes)
         self.project_stack[0].add_code(the_code)
+        self.project_stack[0].write_project_to_file()
+
         self.write()
 
     def new_loop(self, cond, internal=None):
@@ -99,6 +103,7 @@ class API:
         else:
             the_code.make_me_a_loop(cond)
         self.project_stack[0].add_code(the_code)
+        self.project_stack[0].write_project_to_file()
         self.write()
 
     def fill_loop(self, internal):
@@ -106,6 +111,7 @@ class API:
             print("NO LOOP to fill")
             return None
         self.project_stack[0].add_code(internal)
+        self.project_stack[0].write_project_to_file()
         self.write()
 
     def produce_output(self, whatever):
@@ -116,6 +122,7 @@ class API:
             whatever = whatever.to_string()
         the_code.make_me_a_print(whatever)
         self.project_stack[0].add_code(the_code)
+        self.project_stack[0].write_project_to_file()
         self.write()
 
     def call_method(self, name, args=None, inline=None):
@@ -125,6 +132,7 @@ class API:
         res = the_code.make_method_call(name, args, inline=inline)
         if not inline:
             self.project_stack[0].add_code(the_code)
+            self.project_stack[0].write_project_to_file()
             self.write()
         else:
             return res
@@ -135,9 +143,10 @@ class API:
             self.new_project()
         the_code.create_a_var(name, value)
         self.project_stack[0].add_code(the_code)
+        self.project_stack[0].write_project_to_file()
         self.write()
 
-    def write(self):
+    def write_project_to_filewrite(self):
         print("writing")
         if len(self.project_stack) <= 0:
             self.new_project()

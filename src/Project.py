@@ -1,6 +1,8 @@
 # from src.CodeCreation.CodeCreation import *
 # from handsFreeCode.handsFreeCode.handsFreeCode import *
 
+output_path = './output/'
+
 ## most basic building block
 class CodeLine:
     tab_level = 0
@@ -25,8 +27,8 @@ class CodeBlock:
     # concatination of all keywords of all lines and sub-blocks
     keywords = []
 
-    def add_code(self, CodeBlock):
-        
+    # def add_code(self, CodeBlock):
+
 
     def __init__(self, tabLevel=0):
         self.code_content = []
@@ -34,7 +36,7 @@ class CodeBlock:
         self.keywords = []
 
     def flatten_to_codelines(self):
-        print("here")
+        print("Called flatten_to_codelines in CodeBlock.")
         newList = []
         for item in self.code_content:
             if type(item) is CodeLine:
@@ -52,9 +54,10 @@ class CodeBlock:
                 newList.extend(item.flatten_keywords)
         return newList
 
-    def get_codeblock_lines(self):
+    def to_string(self):
         code_lines = self.flatten_to_codelines()
         return ''.join(line.to_string() for line in code_lines)
+
 
 
     def write_all(self):
@@ -145,9 +148,12 @@ class Project:
 
     def write_project_to_file(self):
         print('Writing everything to file %s' % self.name)
+        output_file = open(output_path + self.name, 'w')
 
         for code in self.all_code:
-            print(code.get_codeblock_lines())
+            output_file.write(code.to_string())
+            # print(code.get_codeblock_lines())
+            output_file.close()
 
     def write_project_all(self):
         print("Called write_all in class project.")
