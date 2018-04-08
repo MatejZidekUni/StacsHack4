@@ -164,6 +164,9 @@ class Project:
     all_code = []
     last_codeBlock_index = -1
 
+    tabindex = 0
+    tabcount = [0, 1, 1, 2, 2, 0]
+
     def __init__(self, name):
         self.name = name
         self.command_queue = []
@@ -209,6 +212,7 @@ class Project:
 
         self.tabindex = 0
         for code in self.all_code:
+            print()
             print('Number of tabs: ' + str(self.tabcount[self.tabindex]))
             output_file.write(('\t' * self.tabcount[self.tabindex]) + code.to_string().strip())
             self.tabindex += 1
