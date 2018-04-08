@@ -31,6 +31,13 @@ class CodeBlock:
         self.code_content = []
         self.tab_level = tabLevel
 
+    def exit_codeBlock_one(self):
+        self.last_codeBlock_index = -1
+
+
+    def exit_codeBlock_all(self):
+        self.last_codeBlock_index = -1
+
     def flatten_to_codelines(self):
         print("Called flatten_to_codelines in CodeBlock.")
         newList = []
