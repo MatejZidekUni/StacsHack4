@@ -27,6 +27,13 @@ class CodeBlock:
     # index of last used codeBlock
     last_codeBlock_index = -1
 
+    def exit_codeBlock_one(self):
+        self.last_codeBlock_index = -1
+
+
+    def exit_codeBlock_all(self):
+        self.last_codeBlock_index = -1
+
     def __init__(self, tabLevel=0):
         self.code_content = []
         self.tab_level = tabLevel
