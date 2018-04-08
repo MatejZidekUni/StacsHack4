@@ -167,7 +167,7 @@ class API:
             self.new_project()
         self.project_stack[0].write_project_all()
 
-## for testing...
-api = API()
-api.new_function("fun", ["argument"])
-api.new_loop_for(10)
+# ## for testing...
+# api = API()
+# api.new_function("fun", ["argument"])
+# api.new_loop_for(10)
