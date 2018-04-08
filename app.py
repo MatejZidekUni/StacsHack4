@@ -145,7 +145,7 @@ def print_function(name, phrase, params):
         parameters = params.split(" and ")
         text = "the result of calling function '" + name + " with parameters: "
         for param in parameters:
-            text += "'" + param + "'' "
+            text += "'" + param + "' "
         msg = render_template('printing', stuff=text)
         res = api_instance.call_method(name, args=parameters, inline=True)
         api_instance.produce_output(res)
