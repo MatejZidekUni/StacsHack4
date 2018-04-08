@@ -4,22 +4,23 @@
 	<meta charset="UTF-8">
 	<title>The Hands Free Code</title>
 
-    <link rel="stylesheet" href="../static/codemirror.css">
-	<!-- <link rel="stylesheet" href="/static/codemirror-5.36.0/lib/codemirror.css"> -->
+	<link rel="stylesheet" href="../static/codemirror.css">
 </head>
 <body>
 	<textarea id="code-area" cols="50" rows="5"># Hi, your code will appear here</textarea>
 
 	<div id="changeMe">To be changed by server!</div>
     <p id="another-msg"></p>
-	<script src="../static/codemirror.js"></script>
+	<script src=../static/codemirror.css></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
 
-    </script>
 	<script type="text/javascript">
-	var editor = CodeMirror.fromTextArea($('#code-area'), {
-	    lineNumbers: true
+	var editor = document.getElementById('code-area'), {
+	    lineNumbers: true,
+		mode: {
+        	name: "htmlmixed"
+    	}
 	});
 	$(document).ready(function() {
         const socket = io.connect('http://127.0.0.1:5000/morecode');

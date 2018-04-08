@@ -52,24 +52,30 @@ class CodeBlock:
     def write_all(self):
         codeLines = self.flatten_to_CodeLines()
         for line in codeLines:
+            print(line.to_string())
             appendLine(line.to_string())
 
     # makes a while loop. takes exitCond:string, internal:codeBlock
-    def make_me_a_loop(self, cond, internal):
+    def make_me_a_loop(self, cond, internal=None):
         self.code_content.append(CodeLine("while " + cond + ":", ["loop"], self.tab_level))
-        internal.tab_level += 1
-        self.code_content.append(internal);
+        if internal:
+            internal.tab_level += 1
+            self.code_content.append(internal);
 
-    def make_method_call(self, method_name, args=None):
+    def make_method_call(self, method_name, args=None, inline=None):
         str_args = ""
         if args:
             for i in range(len(args)):
                 str_args += arg
                 if i != len(args) - 1:
                     str_args += ", "
-        self.code_content.append(CodeLine(method_name + "(" + str_args + ")", ["method_call"], self.tab_level))
+        res = CodeLine(method_name + "(" + str_args + ")", ["method_call"], self.tab_level)
+        if inline:
+            return res
+        self.code_content.append(res)
 
     def make_me_a_print(self, varName):
+        print(varName)
         self.code_content.append(CodeLine("print(" + varName + ")", ["print"], self.tab_level))
 
     def make_me_a_sort(self, listName):
@@ -80,6 +86,9 @@ class CodeBlock:
         if internal:
             internal.tab_level += 1
             self.code_content.append(internal)
+
+    def create_a_var(name, val):
+        self.code_content.append(CodeLine(name + " = " + val, ["var"], self.tab_level))
 
     # so what i need is an ifCondition and thenCode
     # optionally you can provide a list of elifConditions and elifThenCodes

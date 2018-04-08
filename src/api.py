@@ -95,7 +95,11 @@ class API:
 
     def new_loop(self, cond, internal=None):
         the_code = CodeBlock()
-        the_code.make_me_a_loop(cond, internal)
+        internal = CodeLine(the_code, ["while"], the_code.tab_level)
+        if internal:
+            the_code.make_me_a_loop(cond, internal)
+        else:
+            the_code.make_me_a_loop(cond)
         self.project_stack[0].add_code(the_code)
         self.write()
 
@@ -107,16 +111,31 @@ class API:
         self.write()
 
     def produce_output(self, whatever):
+        the_code = CodeBlock()
         if len(self.project_stack) <= 0:
             self.new_project()
-        the_code = CodeBlock.make_me_a_print(whatever)
+        the_code.make_me_a_print(whatever)
         self.project_stack[0].add_code(the_code)
         self.write()
 
-    def call_method(self, name, args=None):
+    def call_method(self, name, args=None, inline=None):
+        the_code = CodeBlock()
         if len(self.project_stack) <= 0:
             self.new_project()
-        the_code = CodeBlock.make_method_call(name, args)
+        res = the_code.make_method_call(name, args, inline=inline)
+        if not inline:
+            self.project_stack[0].add_code(the_code)
+            self.write()
+        else:
+            return res
+
+
+
+    def create_variable(self, name, value):
+        the_code = CodeBlock()
+        if len(self.project_stack) <= 0:
+            self.new_project()
+        the_code.create_a_var(name, value)
         self.project_stack[0].add_code(the_code)
         self.write()
 

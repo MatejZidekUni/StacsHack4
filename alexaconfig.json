@@ -202,6 +202,33 @@
                         "exit {structure}",
                         "exit"
                     ]
+                },
+                {
+                    "name": "CreateVarIntent",
+                    "slots": [
+                        {
+                            "name": "name",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "function",
+                            "type": "TextSlot"
+                        },
+                        {
+                            "name": "value",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "params",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "initialise a variable {name} to the result of {function} method call with parameters {params}",
+                        "initialise a variable {name} to {value}",
+                        "initialise a variable {name} to the result of {function} method call",
+                        "initialise a variable {name} to the result of {function} function call"
+                    ]
                 }
             ],
             "types": [

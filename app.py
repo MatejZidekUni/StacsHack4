@@ -62,8 +62,8 @@ def new_function(_, name, params):
         new_func_msg = render_template('func_no_args', func_name=name)
     else:
         text = " with parameters: "
-        parameters = []
-        for p in params:
+        parameters = params.split(" and ")
+        for p in parameters:
             parameters.append(p)
             text += "'" + p + "' "
         if name is None:
@@ -130,7 +130,7 @@ def method_call(name, params):
 def print_function(name, phrase, params):
     if phrase is not None and name is None and params is None:
         # print fixed phrase
-        api_instance.make_me_a_print(phrase)
+        api_instance.produce_output(phrase)
         msg = render_template('printing', stuff=phrase)
     elif name is not None and phrase is None and params is None:
         # print result of a method call without parameters
@@ -146,8 +146,23 @@ def print_function(name, phrase, params):
             text += "'" + param + "'' "
         msg = render_template('printing', stuff=text)
         res = api_instance.call_method(name, args=parameters)
-        api_instance.make_me_a_print(res)
+        api_instance.produce_output(res)
     return question(msg)
+
+
+@ask.intent("CreateVarIntent")
+def create_var(name, function, value, params):
+    if name is not None and value is not None:
+        api_instance.create_variable(name, value)
+        msg = render_template('variable', value=value)
+        return question(msg)
+    if params is None:
+        method = api_instance.call_method(name)
+        api_instance.create_variable(name, method)
+    else:
+        parameters = params.split(" and ")
+        method = api_instance.call_method(name, parameters)
+        api_instance.create_variable(name, method)
 
 
 @ask.intent("ExitIntent")
