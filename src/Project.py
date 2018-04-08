@@ -34,8 +34,8 @@ class CodeBlock:
     def flatten_to_codelines(self):
         print("Called flatten_to_codelines in CodeBlock.")
         newList = []
-        if len(self.code_content) <= 0:
-            self.code_content.append(CodeLine("pass", self.tab_level))
+        #if len(self.code_content) <= 0:
+        #    self.code_content.append(CodeLine("pass", self.tab_level))
 
         for item in self.code_content:
             #item.tab_level += self.tab_level
