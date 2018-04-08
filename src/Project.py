@@ -3,7 +3,7 @@
 
 output_path = './output/'
 
-## most basic building block
+# most basic building block
 class CodeLine:
     tab_level = 0
     line_string = ""
@@ -13,7 +13,9 @@ class CodeLine:
         self.tab_level = tab_level
 
     def to_string(self):
-        return ("\t" * self.tab_level) + self.line_string
+        print('tabs: %s' % ("\t" * self.tab_level))
+        print('code: %s' % self.line_string)
+        return str(("\t" * self.tab_level) + self.line_string)
 
 
 # composed of other CodeBlocks or CodeLines
@@ -22,11 +24,12 @@ class CodeBlock:
     code_content = []
     # general tab level of code Block
     tab_level = 0
+    # index of last used codeBlock
+    last_codeBlock_index = -1
 
     def __init__(self, tabLevel=0):
         self.code_content = []
         self.tab_level = tabLevel
-        self.keywords = []
 
     def flatten_to_codelines(self):
         print("Called flatten_to_codelines in CodeBlock.")
@@ -35,12 +38,12 @@ class CodeBlock:
             self.code_content.append(CodeLine("pass", self.tab_level))
 
         for item in self.code_content:
-            item.tab_level += self.tab_level
+            #item.tab_level += self.tab_level
             if type(item) is CodeLine:
                 print("-line- " + item.to_string() + " : " + str(item.tab_level))
                 newList.append(item)
             else:
-                newList.extend(item.flatten_to_codelines)
+                newList.extend(item.flatten_to_codelines())
         return newList
 
     def get_codeblock_lines(self):
@@ -90,12 +93,6 @@ class CodeBlock:
 
     def make_me_a_print(self, whatever):
         self.code_content.append(CodeLine("print(" + whatever + ")", self.tab_level))
-    # makes a while loop. takes exitCond:string, internal:codeBlock
-    def make_me_a_loop(self, cond, internal=None):
-        self.code_content.append(CodeLine("while " + cond + ":", ["loop"], self.tab_level))
-        if internal:
-            internal.tab_level += 1
-            self.code_content.append(internal);
 
     def make_method_call(self, method_name, args=None, inline=None):
         str_args = ""
@@ -104,14 +101,10 @@ class CodeBlock:
                 str_args += args[i]
                 if i != len(args) - 1:
                     str_args += ", "
-        res = CodeLine(method_name + "(" + str_args + ")", ["method_call"], self.tab_level)
+        res = CodeLine(method_name + "(" + str_args + ")", self.tab_level)
         if inline:
             return res
         self.code_content.append(res)
-
-    def make_me_a_print(self, varName):
-        print(varName)
-        self.code_content.append(CodeLine("print(" + varName + ")", ["print"], self.tab_level))
 
     def make_me_a_sort(self, listName):
         self.code_content.append(CodeLine(listName + " = sorted(" + listName + ")", self.tab_level))
@@ -126,13 +119,13 @@ class CodeBlock:
         self.last_codeBlock_index = self.code_content.index(internal)  # leave index on internal block
 
     def create_a_var(self, name, val):
-        self.code_content.append(CodeLine(name + " = " + val, ["var"], self.tab_level))
+        self.code_content.append(CodeLine(name + " = " + val, self.tab_level))
 
     # so what i need is an ifCondition and thenCode
     # optionally you can provide a list of elifConditions and elifThenCodes
     # --! but the list of elifThenCodes must be at most 1 longer than the list of elifConditions
     def make_me_a_conditional(self, ifCondition, thenCode, elifConditions, elifThenCodes):
-        self.code_content.append(CodeLine("if " + ifCondition + " :",self.tab_level))
+        self.code_content.append(CodeLine("if " + ifCondition + " :", self.tab_level))
         thenCode.tab_level += 1
         self.code_content.append(thenCode)
         if elifConditions:
@@ -146,6 +139,8 @@ class CodeBlock:
                 elifThenCodes[-1].tab_level += self.tab_level
                 self.code_content.append(elifThenCodes[-1])
 
+    def make_me_a_return(self, what=None):
+        self.code_content.append(CodeLine("return " + what, self.tab_level))
 
 class Project:
     """A project"""
@@ -198,8 +193,8 @@ class Project:
 
         for code in self.all_code:
             output_file.write(code.to_string())
-            # print(code.get_codeblock_lines())
-            output_file.close()
+
+        output_file.close()
 
     def write_project_all(self):
         print("Called write_all in class project.")

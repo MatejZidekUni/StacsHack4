@@ -91,7 +91,7 @@ class API:
             self.new_project()
 
         the_code = CodeBlock()
-        thenCode = CodeLine(thenCode, ["then conditional"], the_code.tab_level)
+        thenCode = CodeLine(the_code.to_string(), the_code.tab_level)
         the_code.make_me_a_conditional(ifCondition, thenCode, elifConditions, elifThenCodes)
         self.project_stack[0].add_code(the_code)
         self.project_stack[0].write_project_to_file()
@@ -100,7 +100,7 @@ class API:
 
     def new_loop_while(self, cond, internal=None):
         the_code = CodeBlock()
-        internal = CodeLine(the_code, ["while"], the_code.tab_level)
+        internal = CodeLine(the_code, the_code.tab_level)
         if internal:
             the_code.make_me_a_loop_while(cond, internal)
         else:
@@ -134,6 +134,19 @@ class API:
         self.project_stack[0].write_project_to_file()
         self.write()
 
+    def return_something(self, what_to_return):
+        the_code = CodeBlock()
+        if len(self.project_stack) <= 0:
+            self.new_project()
+        if type(what_to_return) is CodeLine:
+            what_to_return = what_to_return.to_string()
+
+        the_code.make_me_a_return(what_to_return)
+
+        self.project_stack[0].add_code(the_code)
+        self.project_stack[0].write_project_to_file()
+        self.write()
+
     def call_method(self, name, args=None, inline=None):
         the_code = CodeBlock()
         if len(self.project_stack) <= 0:
@@ -155,14 +168,14 @@ class API:
         self.project_stack[0].write_project_to_file()
         self.write()
 
-    def write_to_file(self):
-        print("Writing to file.")
+    def write(self):
+        print("API: called write")
         if len(self.project_stack) <= 0:
             self.new_project()
-        self.project_stack[0].write_project_to_file()
+        self.project_stack[0].write_project_all()
 
-    def write_project_to_filewrite(self):
-        print("writing")
+    def write_to_file(self):
+        print("API: writing to file.")
         if len(self.project_stack) <= 0:
             self.new_project()
         self.project_stack[0].write_project_all()
