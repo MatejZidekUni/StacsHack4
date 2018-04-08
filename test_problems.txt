@@ -1,0 +1,9 @@
+start program writer
+create program numbers
+create function printing with max
+initialise variable test to zero
+loop while test less than max
+increment test
+print test
+exit the block
+call method printing with 5
