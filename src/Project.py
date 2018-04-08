@@ -1,4 +1,5 @@
-from src.CodeCreation.CodeCreation import *
+# from src.CodeCreation.CodeCreation import *
+# from handsFreeCode.handsFreeCode.handsFreeCode import *
 
 ## most basic building block
 class CodeLine:
@@ -19,21 +20,13 @@ class CodeBlock:
     # general tab level of code Block
     tab_level = 0
 
-    last_codeBlock_index = -1
-
     def __init__(self, tabLevel=0):
         self.code_content = []
         self.tab_level = tabLevel
         self.keywords = []
-        self.last_codeBlock_index = -1
-
-    def exit_codeBlock_one(self):
-        pass
-
-    def exit_codeBlock_all(self):
-        self.last_codeBlock_index = -1;
 
     def flatten_to_CodeLines(self):
+        print("here")
         newList = []
         if len(self.code_content) <= 0:
             self.code_content.append(CodeLine("pass", self.tab_level))
@@ -44,7 +37,7 @@ class CodeBlock:
                 print("-line- " + item.to_string() + " : " + str(item.tab_level))
                 newList.append(item)
             else:
-                newList.extend(item.flatten_to_CodeLines())
+                newList.extend(item.flatten_to_CodeLines)
         return newList
 
     def write_all(self):
@@ -85,13 +78,17 @@ class CodeBlock:
 
     def make_me_a_print(self, whatever):
         self.code_content.append(CodeLine("print(" + whatever + ")", self.tab_level))
+    # makes a while loop. takes exitCond:string, internal:codeBlock
+    def make_me_a_loop(self, cond, internal):
+        self.code_content.append(CodeLine("while " + cond + ":", ["loop"], self.tab_level))
+        internal.tab_level += 1
+        self.code_content.append(internal);
 
-        self.last_codeBlock_index = -1
+    def make_me_a_print(self, varName):
+        self.code_content.append(CodeLine("print(" + varName + ")", ["print"], self.tab_level))
 
     def make_me_a_sort(self, listName):
         self.code_content.append(CodeLine(listName + " = sorted(" + listName + ")", self.tab_level))
-
-        self.last_codeBlock_index = -1
 
     def make_me_a_function_call(self, funName, args=None, varToAssign=None):
         self.code_content.append(CodeLine(((varToAssign + " = ") if varToAssign else "") + funName
@@ -129,6 +126,7 @@ class CodeBlock:
 class Project:
     """A project"""
     name = ""
+    command_queue = []
     used_function_names = []
     # bunch of code Blocks
     all_code = []
@@ -139,7 +137,8 @@ class Project:
         self.command_queue = []
         self.used_function_names = []
 
-        createFile(name)
+        # Just to get rid of an error -- I think we need this!
+        # createFile(name)
 
     def add_code(self, code):
         code.tab_level = 1
@@ -168,6 +167,7 @@ class Project:
     def exit_codeBlock_all(self):
         self.last_codeBlock_index = -1
 
+
     def write_all(self):
         for code in self.all_code:
-            code.write_all()
+            code.write_all

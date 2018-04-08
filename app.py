@@ -1,14 +1,66 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from flask_ask import Ask, statement, question, session
+from flask_socketio import SocketIO, emit
+
+# Local imports
+from src.api import API
 
 app = Flask(__name__)
 ask = Ask(app, '/')
+socketio = SocketIO(app)
+api_instance = API()
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/code')
+def get_code():
+    return "Does this text get sent?"
+    # return api_instance.write()
+
+
+@socketio.on('connect', namespace='/morecode')
+def socket_connect():
+    print('socket.io connected.')
+    emit('my response', {'data': 'Connected.'})
+
+
+@socketio.on('my event', namespace='/morecode')
+def give_more_code(message):
+    emit('moreofmycode', {'data': message['data']})
+
 
 @ask.launch
 def new_coding_session():
     welcome_msg = render_template('welcome')
     return question(welcome_msg)
 
+
+@ask.intent('NewProjectIntent')
+def new_project(project_name):
+    new_project_msg = render_template('new_project', project_name=project_name)
+    api_instance.new_project(project_name)
+    return question(new_project_msg)
+
+
+@ask.intent('FunctionIntent')
+def new_function(func_name, arg_one, arg_two):
+    # If the function takes in no arguments
+    if arg_one is None and arg_two is None:
+        new_func_msg = render_template('func_no_args', func_name=func_name)
+
+    # If the function takes in one argument
+    if arg_one is not None and arg_two is None:
+        new_func_msg = render_template('func_one_arg', func_name=func_name, arg_one=arg_one)
+
+    # If the function takes in two arguments
+    if arg_one is not None and arg_two is not None:
+        new_func_msg = render_template('func_two_args', func_name=func_name, arg_one=arg_one, arg_two=arg_two)
+
+    return question(new_func_msg)
 
 @ask.intent('ConditionalIntent')
 def write_conditional(first_value, comparator, second_value, if_true, if_false):
@@ -83,16 +135,17 @@ def print_function(name, phrase, params):
         msg = render_template('printing', stuff=phrase)
     elif name is not None and phrase is None and params is None:
         # print result of a method call without parameters
-        text = "the result of calling function '" + name + " without parameters'
+        text = "the result of calling function '" + name + " without parameters"
         msg = render_template('printing', stuff=text)
-    elif name is not None and params is not None and phrase is None :
+    elif name is not None and params is not None and phrase is None:
         # print result of a method call with parameters
         parameters = params.split(" and ")
-        text = "the result of calling function '" + name + " with parameters: '
+        text = "the result of calling function '" + name + " with parameters: "
         for param in parameters:
             text += "'" + param + "'' "
         msg = render_template('printing', stuff=text)
     return question(msg)
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app)
