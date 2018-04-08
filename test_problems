@@ -1,0 +1,21 @@
+
+start program writer
+create program max
+create function max with parameters a and b
+initialise a variable test to zero
+if a less than b then print a else print b
+exit
+exit
+call method max with parameters 3 and 5
+
+
+start program writer
+create program numbers
+create function printing with parameter max
+initialise variable test to zero
+loop while test less than max
+increment test
+print test
+exit
+exit
+call method printing with parameters 5

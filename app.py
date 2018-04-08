@@ -63,6 +63,10 @@ def new_function(_, name, params):
 
 @ask.intent('ConditionalIntent')
 def write_conditional(first_value, comparator, second_value, if_true, if_false):
+    if if_true is not None and if_true.startswith("print"):
+        if_true = x[6:]
+    if if_false is not None and if_false.startswith("print"):
+        if_false = x[6:]
     # If the conditional consists of two parts, e.g. 'if val == 1',
     # and there is no else block
     if comparator is not None and second_value is not None and if_false is None:
@@ -151,6 +155,11 @@ def create_var(name, function, value, params):
         parameters = params.split(" and ")
         method = api_instance.call_method(name, parameters, inline=True)
         api_instance.create_variable(name, method)
+
+
+@ask.intent("IncrementVarIntent")
+def incr_var(name):
+    api_instance.increment_var(name)
 
 
 @ask.intent("ReturnIntent")

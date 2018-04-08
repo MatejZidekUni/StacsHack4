@@ -246,6 +246,18 @@
                         "return {text}",
                         "return variable {name}"
                     ]
+                },
+                {
+                    "name": "IncrementVarIntent",
+                    "slots": [
+                        {
+                            "name": "name",
+                            "type": "TextSlot"
+                        }
+                    ],
+                    "samples": [
+                        "increment {name}"
+                    ]
                 }
             ],
             "types": [
