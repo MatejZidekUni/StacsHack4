@@ -144,6 +144,9 @@ class CodeBlock:
     def make_me_a_return(self, what=None):
         self.code_content.append(CodeLine("return " + what, self.tab_level))
 
+    def make_me_a_var_incr(self, varName):
+        self.code_content.append(CodeLine(varName + " += 1", self.tab_level))
+
 class Project:
     """A project"""
     name = ""
