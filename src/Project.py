@@ -31,13 +31,6 @@ class CodeBlock:
         self.code_content = []
         self.tab_level = tabLevel
 
-    def exit_codeBlock_one(self):
-        self.last_codeBlock_index = -1
-
-
-    def exit_codeBlock_all(self):
-        self.last_codeBlock_index = -1
-
     def flatten_to_codelines(self):
         print("Called flatten_to_codelines in CodeBlock.")
         newList = []
@@ -183,20 +176,20 @@ class Project:
 
     def exit_codeBlock_one(self):
         # if our index is not -1
-        if self.last_codeBlock_index != -1 :
+        if self.last_codeBlock_index != -1:
             # if the index of the inner block is -1
             if self.all_code[self.last_codeBlock_index].last_codeBlock_index == -1:
                 # then we progress to -1 too
                 self.last_codeBlock_index = -1
             # else we move the inner block by 1
             else:
-                self.exit_codeBlock_one()
-                # self.all_code[self.last_codeBlock_index].exit_codeBlock_one()
+                #self.exit_codeBlock_one()
+                self.all_code[self.last_codeBlock_index].exit_codeBlock_one()
         # else this shouldn't happen
         else:
             self.last_codeBlock_index = -2
-        self.exit_codeBlock_one()
-        # self.all_code[self.last_codeBlock_index].exit_codeBlock_one()
+        # self.exit_codeBlock_one()
+        #self.all_code[self.last_codeBlock_index].exit_codeBlock_one()
 
     def exit_codeBlock_all(self):
         self.last_codeBlock_index = -1
