@@ -25,6 +25,9 @@ class CodeBlock:
     # concatination of all keywords of all lines and sub-blocks
     keywords = []
 
+    def add_code(self, CodeBlock):
+        
+
     def __init__(self, tabLevel=0):
         self.code_content = []
         self.tab_level = tabLevel

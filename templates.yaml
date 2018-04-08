@@ -24,7 +24,7 @@ while: The loop you wrote was 'while {{ text }}'.
 
 method_call: The request you wrote would call method named '{{ name }}' with parameters '{{ params }}'
 
-printing: Printing '{{ stuff }}'
+printing: Printing {{ stuff }}
 
 func_no_args: Writing a new function called '{{ func_name }}'.
 
