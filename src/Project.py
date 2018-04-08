@@ -66,7 +66,7 @@ class CodeBlock:
         str_args = ""
         if args:
             for i in range(len(args)):
-                str_args += arg
+                str_args += args[i]
                 if i != len(args) - 1:
                     str_args += ", "
         res = CodeLine(method_name + "(" + str_args + ")", ["method_call"], self.tab_level)
