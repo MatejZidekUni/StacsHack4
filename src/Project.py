@@ -46,13 +46,9 @@ class CodeBlock:
                 newList.extend(item.flatten_to_codelines())
         return newList
 
-    def get_codeblock_lines(self):
-        code_lines = self.flatten_to_codelines()
-        return ''.join(line.to_string() for line in code_lines)
-
     def to_string(self):
         code_lines = self.flatten_to_codelines()
-        return ''.join(line.to_string() for line in code_lines)
+        return '\n'.join(line.to_string() for line in code_lines)
 
     def write_all(self):
         codeLines = self.flatten_to_codelines()

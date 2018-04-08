@@ -164,6 +164,7 @@ dict = {
     "greater than": ">",
     "less than": "<",
     "equals": "==",
+    "is": "==",
     "has": "contains",
 }
 
