@@ -1,7 +1,7 @@
 import requests
 
 def htmlify(str):
-    return str.replace("\n", "<br/>").replace("\t", "&nbsp;&nbsp;&nbsp;")
+    return str.replace("\n", "<br/>").replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;")
 
 def createFile(name):
     print("made file '" + name + "'")

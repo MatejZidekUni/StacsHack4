@@ -2,7 +2,7 @@
     lineNumbers: true
 });*/
 
-window.setInterval(updateCode, 50);
+window.setInterval(updateCode, 500);
 
 function updateCode(){
     $.getJSON("/get_new_cont", function(content){
