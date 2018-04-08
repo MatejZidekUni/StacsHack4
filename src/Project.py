@@ -75,9 +75,6 @@ class CodeBlock:
     def make_me_a_sort(self, listName):
         self.code_content.append(CodeLine(listName + " = sorted(" + listName + ")", ["sort", "list"], self.tab_level))
 
-    def make_me_a_function_call(self, funName, args=None, varToAssign=None):
-        self.code_content.append(CodeLine(((varToAssign + " = ") if varToAssign else "") + funName + "(" + ([a + ", " for a in args] if args else "") + ")", ["function call", funName], self.tab_level))
-
     def make_me_a_function(self, funName, args=None, internal=None):
         self.code_content.append(CodeLine("def " + funName + ','.join([str(a) for a in args] if args else "") + ":", ["function", funName], self.tab_level))
         if internal:
@@ -88,7 +85,7 @@ class CodeBlock:
     # optionally you can provide a list of elifConditions and elifThenCodes
     # --! but the list of elifThenCodes must be at most 1 longer than the list of elifConditions
     def make_me_a_conditional(self, ifCondition, thenCode, elifConditions, elifThenCodes):
-        self.code_content.append(CodeLine("if " + ifCondition + " :", ["if"],self.tab_level))
+        self.code_content.append(CodeLine("if " + ifCondition + " :", ["if"], self.tab_level))
         thenCode.tab_level += 1
         self.code_content.append(thenCode)
         if elifConditions :
@@ -97,10 +94,10 @@ class CodeBlock:
                 elifThenCode.tab_level += 1
                 self.code_content.append(elifThenCode)
 
-        if len(elifThenCodes) > len(elifConditions):
-            self.code_content.append(CodeLine("else: ", ["else"], self.tab_level))
-            elifThenCodes[-1].tab_level += 1
-            self.code_content.append(elifThenCodes[-1])
+            if len(elifThenCodes) > len(elifConditions):
+                self.code_content.append(CodeLine("else: ", ["else"], self.tab_level))
+                elifThenCodes[-1].tab_level += 1
+                self.code_content.append(elifThenCodes[-1])
 
 
 class Project:

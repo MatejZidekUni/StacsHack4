@@ -88,6 +88,7 @@ class API:
 
     def new_condition(self, ifCondition, thenCode, elifConditions, elifThenCodes):
         the_code = CodeBlock()
+        thenCode = CodeLine(thenCode, ["then conditional"], the_code.tab_level)
         the_code.make_me_a_conditional(ifCondition, thenCode, elifConditions, elifThenCodes)
         self.project_stack[0].add_code(the_code)
         self.write()
@@ -124,7 +125,3 @@ class API:
         if len(self.project_stack) <= 0:
             self.new_project()
         self.project_stack[0].write_all()
-
-## for testing...
-api = API()
-api.new_function("fun", ["argument"])
