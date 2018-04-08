@@ -38,7 +38,7 @@ class CodeBlock:
         #    self.code_content.append(CodeLine("pass", self.tab_level))
 
         for item in self.code_content:
-            #item.tab_level += self.tab_level
+            item.tab_level += self.tab_level
             if type(item) is CodeLine:
                 print("-line- " + item.to_string() + " : " + str(item.tab_level))
                 newList.append(item)
@@ -162,7 +162,7 @@ class Project:
         # createFile(name)
 
     def add_code(self, code):
-        code.tab_level = 1
+        code.tab_level = 0
         if(self.last_codeBlock_index > -1):
             print("going into codeBlock of project")
             self.all_code[self.last_codeBlock_index].add_code(code)
@@ -187,7 +187,6 @@ class Project:
 
     def exit_codeBlock_all(self):
         self.last_codeBlock_index = -1
-
 
     def write_project_to_file(self):
         print('Writing everything to file %s' % self.name)
