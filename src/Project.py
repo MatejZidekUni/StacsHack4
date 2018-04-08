@@ -183,11 +183,13 @@ class Project:
                 self.last_codeBlock_index = -1
             # else we move the inner block by 1
             else:
-                self.all_code[self.last_codeBlock_index].exit_codeBlock_one()
+                self.exit_codeBlock_one()
+                # self.all_code[self.last_codeBlock_index].exit_codeBlock_one()
         # else this shouldn't happen
         else:
             self.last_codeBlock_index = -2
-        self.all_code[self.last_codeBlock_index].exit_codeBlock_one()
+        self.exit_codeBlock_one()
+        # self.all_code[self.last_codeBlock_index].exit_codeBlock_one()
 
     def exit_codeBlock_all(self):
         self.last_codeBlock_index = -1
