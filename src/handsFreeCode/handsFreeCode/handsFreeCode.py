@@ -1,6 +1,6 @@
-import os
-import sqlite3
-from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+from copy import deepcopy
+
+from flask import Flask, request, render_template, jsonify
 app = Flask(__name__)
 
 app = Flask(__name__) # create the application instance :)
@@ -12,7 +12,19 @@ app.config.update(dict(
     USERNAME='admin',
     PASSWORD='default'
 ))
-app.config.from_envvar('FLASKR_SETTINGS', silent=True)
+app.config.from_envvar('HFC_SETTINGS', silent=True)
+
+content = {"appendLines":[], #[content1, content2,...]
+           "changeLines":[], #[(lineNum, newCont),...]
+           "insertLines":[], #[(lineNum, content),...]
+           "deleteLines":[], #[lineNum1, lineNum2,...]
+           "mkFile": False,
+           "delFile": False,
+           "saveFile": False,
+           "run": False,
+           "hasChanged":False
+           }
+contentFresh = deepcopy(content)
 
 @app.route('/')
 def hello_world():
@@ -22,17 +34,16 @@ def hello_world():
 def show_code():
     return render_template('createdCode.html')
 
-content = ""
-def setCont(c):
+@app.route('/get_new_cont', methods=["GET"])
+def get_new_cont():
     global content
-    content = c
+    json = jsonify(content)
+    content = deepcopy(contentFresh)
+    return json
 
-@app.route('/code', methods=["POST"])
-def update_code():
-    print(request.text)
-    return render_template('createdCode.html')
-
-@app.route('/get_buffered', methods=["GET"])
-def get_buffered():
-    return content
-
+@app.route('/append_line', methods=["POST"])
+def append_line():
+    line = request.form.get("appendLine")
+    content["appendLines"].append(line)
+    content["hasChanged"] = True
+    return line
