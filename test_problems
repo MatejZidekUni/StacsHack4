@@ -17,5 +17,4 @@ loop while test less than max
 increment test
 print test
 exit the block
-exit the block
 call method printing with 5

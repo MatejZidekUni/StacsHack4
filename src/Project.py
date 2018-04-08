@@ -45,7 +45,7 @@ class CodeBlock:
         #    self.code_content.append(CodeLine("pass", self.tab_level))
 
         for item in self.code_content:
-            item.tab_level += self.tab_level
+            item.tab_level = self.tab_level
             if type(item) is CodeLine:
                 print("-line- " + item.to_string() + " : " + str(item.tab_level))
                 newList.append(item)
@@ -97,7 +97,7 @@ class CodeBlock:
         if internal is None:
             internal = CodeBlock(self.tab_level + 1)
         else:
-            internal.tab_level += self.tab_level
+            internal.tab_level = self.tab_level +1
         self.code_content.append(internal)
         self.last_codeBlock_index = self.code_content.index(internal)  # leave index on internal block
 
@@ -168,6 +168,8 @@ class Project:
         self.name = name
         self.command_queue = []
         self.used_function_names = []
+        self.tabcount = [0, 1, 1, 2, 2, 0]
+        self.tabindex = 0
 
         # Just to get rid of an error -- I think we need this!
         # createFile(name)
@@ -201,17 +203,15 @@ class Project:
     def exit_codeBlock_all(self):
         self.last_codeBlock_index = -1
 
-    tabcount = [0, 1, 1, 2, 2, 0]
-    tabindex = 0
-
     def write_project_to_file(self):
         print('Writing everything to file %s' % self.name)
         output_file = open(output_path + self.name, 'w')
-        global tabindex
-        for code in self.all_code:
-            output_file.write('\t' * tabcount[tabindex] + code.to_string().strip())
-            tabindex += 1
 
+        self.tabindex = 0
+        for code in self.all_code:
+            print('Number of tabs: ' + str(self.tabcount[self.tabindex]))
+            output_file.write(('\t' * self.tabcount[self.tabindex]) + code.to_string().strip())
+            self.tabindex += 1
 
         output_file.close()
 
