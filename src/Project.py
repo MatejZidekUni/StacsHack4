@@ -66,10 +66,11 @@ class CodeBlock:
                 self.code_content[self.last_codeBlock_index].add_code(codeBlock)
             else:
                 self.code_content.append(codeBlock)
+                self.last_codeBlock_index = self.code_content.index(codeBlock)
         else:
             print("  we are at tab level " + str(codeBlock.tab_level))
             self.code_content.append(codeBlock)
-        self.last_codeBlock_index = self.code_content.index(codeBlock) # leave index on internal block
+            self.last_codeBlock_index = self.code_content.index(codeBlock) # leave index on internal block
 
 
     # makes a while loop. takes exitCond:string, internal:codeBlock
@@ -112,7 +113,7 @@ class CodeBlock:
         self.code_content.append(CodeLine(listName + " = sorted(" + listName + ")", self.tab_level))
 
     def make_me_a_function(self, funName, args=None, internal=None):
-        self.code_content.append(CodeLine("def " + funName + "( "+ ','.join([str(a) for a in args] if args else "") + "):", self.tab_level))
+        self.code_content.append(CodeLine("def " + funName + "("+ (','.join([str(a) for a in args]) if args else "") + "):", self.tab_level))
         if internal:
             internal.tab_level += self.tab_level
         else:
@@ -127,7 +128,7 @@ class CodeBlock:
     # optionally you can provide a list of elifConditions and elifThenCodes
     # --! but the list of elifThenCodes must be at most 1 longer than the list of elifConditions
     def make_me_a_conditional(self, ifCondition, thenCode, elifConditions, elifThenCodes):
-        self.code_content.append(CodeLine("if " + ifCondition + " :", self.tab_level))
+        self.code_content.append(CodeLine("if " + ifCondition + ":", self.tab_level))
         thenCode.tab_level += 1
         self.code_content.append(thenCode)
         if elifConditions:
@@ -199,6 +200,9 @@ class Project:
             output_file.write(code.to_string())
 
         output_file.close()
+
+    def to_string():
+        return '\n'.join([code.to_string() for code in self.all_code])
 
     def write_project_all(self):
         print("Called write_all in class project.")

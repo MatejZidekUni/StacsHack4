@@ -52,12 +52,12 @@ class API:
         self.write_to_file()
 
     def increment_var(self, varName):
+        print('increment_var called.')
         if len(self.project_stack) <= 0:
             self.new_project()
         the_code = CodeBlock()
         the_code.make_me_a_var_incr(varName)
         self.project_stack[0].add_code(the_code)
-
         self.project_stack[0].write_project_to_file()
         self.write()
 
@@ -189,7 +189,7 @@ class API:
         print("API: writing to file.")
         if len(self.project_stack) <= 0:
             self.new_project()
-        self.project_stack[0].write_project_all()
+        self.project_stack[0].write_project_to_file()
 
 # ## for testing...
 # api = API()

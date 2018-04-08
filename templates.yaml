@@ -30,4 +30,4 @@ func_no_args: Writing a new function called '{{ func_name }}'.
 
 func_with_args: Writing a new function called '{{ func_name }}' with arguments '{{ text }}'.
 
-variable: Initialising a variable to {{ val }.
+variable: Initialising a variable to {{ val }}.

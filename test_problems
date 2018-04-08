@@ -11,11 +11,11 @@ call method max with parameters 3 and 5
 
 start program writer
 create program numbers
-create function printing with parameter max
+create function printing with max
 initialise variable test to zero
 loop while test less than max
 increment test
 print test
 exit
 exit
-call method printing with parameters 5
+call method printing with 5

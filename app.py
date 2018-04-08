@@ -46,17 +46,19 @@ def new_function(_, name, params):
         # If the function takes in no arguments
         if name is None:
             api_instance.new_function()
-        api_instance.new_function(name=name)
+        else:
+            api_instance.new_function(name=name)
         new_func_msg = render_template('func_no_args', func_name=name)
     else:
         text = " with parameters: "
-        parameters = params.split(" and ")
+        parameters = params.strip().split(" and ")
         for p in parameters:
-            parameters.append(p)
+            # parameters.append(p)
             text += "'" + p + "' "
         if name is None:
             api_instance.new_function(args=parameters)
-        api_instance.new_function(name=name, args=parameters)
+        else:
+            api_instance.new_function(name=name, args=parameters)
         new_func_msg = render_template('func_with_args', func_name=name, text=text)
     return question(new_func_msg)
 
@@ -64,9 +66,11 @@ def new_function(_, name, params):
 @ask.intent('ConditionalIntent')
 def write_conditional(first_value, comparator, second_value, if_true, if_false):
     if if_true is not None and if_true.startswith("print"):
-        if_true = x[6:]
+        if_true = if_true[6:]
+        if_true="print(" + if_true + ")"
     if if_false is not None and if_false.startswith("print"):
-        if_false = x[6:]
+        if_false = if_false[6:]
+        if_false="print(" + if_false + ")"
     # If the conditional consists of two parts, e.g. 'if val == 1',
     # and there is no else block
     if comparator is not None and second_value is not None and if_false is None:
@@ -159,19 +163,26 @@ def create_var(name, function, value, params):
 
 @ask.intent("IncrementVarIntent")
 def incr_var(name):
+    print("IncrementVarIntent called")
     api_instance.increment_var(name)
+    return question("Success!")
 
 
 @ask.intent("ReturnIntent")
 def create_var(name, text):
+    print("ReturnIntent has been called")
     if name is not None:
         api_instance.return_something(name)
     elif text is not None:
         api_instance.return_something(text)
+    return question("Success!")
+
 
 @ask.intent("ExitIntent")
 def exit_function(reason):
+    print("ExitIntent has been called")
     api_instance.jump_up_1()
+    return question("Success!")
 
 
 dict = {
