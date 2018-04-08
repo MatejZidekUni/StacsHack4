@@ -164,9 +164,9 @@ def incr_var(name):
 
 @ask.intent("ReturnIntent")
 def create_var(name, text):
-    if name not None:
+    if name is not None:
         api_instance.return_something(name)
-    elif text not None;
+    elif text is not None:
         api_instance.return_something(text)
 
 @ask.intent("ExitIntent")
