@@ -15,7 +15,8 @@ class CodeLine:
     def to_string(self):
         return ("\t" * self.tab_level) + self.line_string
 
-## composed of other CodeBlocks or CodeLines
+
+# composed of other CodeBlocks or CodeLines
 class CodeBlock:
     # code content may be either CodeBlock or CodeLine
     code_content = []
@@ -32,14 +33,14 @@ class CodeBlock:
         self.tab_level = tabLevel
         self.keywords = []
 
-    def flatten_to_CodeLines(self):
+    def flatten_to_codelines(self):
         print("here")
         newList = []
         for item in self.code_content:
             if type(item) is CodeLine:
                 newList.append(item)
             else:
-                newList.extend(item.flatten_to_CodeLines)
+                newList.extend(item.flatten_to_codelines)
         return newList
 
     def flatten_keywords(self):
@@ -51,9 +52,13 @@ class CodeBlock:
                 newList.extend(item.flatten_keywords)
         return newList
 
+    def get_all_lines(self):
+        code_lines = self.flatten_to_codelines()
+        return ''.join(line for line in code_lines)
+
 
     def write_all(self):
-        codeLines = self.flatten_to_CodeLines()
+        codeLines = self.flatten_to_codelines()
         for line in codeLines:
             print(line.to_string())
             # appendLine(line.to_string())
@@ -90,7 +95,7 @@ class CodeBlock:
             internal.tab_level += 1
             self.code_content.append(internal)
 
-    def create_a_var(name, val):
+    def create_a_var(self, name, val):
         self.code_content.append(CodeLine(name + " = " + val, ["var"], self.tab_level))
 
     # so what i need is an ifCondition and thenCode
@@ -138,7 +143,12 @@ class Project:
     def cha_code(self, keywords, newCode):
         pass
 
+    def write_to_file(self):
+        print('Writing everything to file %s' % self.name)
+        for code in self.all_code:
+            print(code.get_all_lines())
+
     def write_all(self):
-        print("here2")
+        print("Called write_all in class project.")
         for code in self.all_code:
             code.write_all()

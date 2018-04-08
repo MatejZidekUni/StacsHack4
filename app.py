@@ -43,11 +43,13 @@ def new_coding_session():
 def create_program(verb, name):
     print('program:', name)
     if name is None:
-        # call without an optional argument name
+        # Call without an optional argument name
         api_instance.new_project()
     else:
         name = name + ".py"
         api_instance.new_project(name=name)
+
+    api_instance.write_to_file()
     msg = render_template('program', prog_name=name)
     return question(msg)
 
@@ -171,13 +173,14 @@ def exit_function(reason):
 
 
 dict = {
-    "greater than or equals" : ">=",
-    "less than or equals" : ">=",
-    "greater than" : ">",
-    "less than" : "<",
-    "equals" : "==",
-    "has" : "contains",
+    "greater than or equals": ">=",
+    "less than or equals": ">=",
+    "greater than": ">",
+    "less than": "<",
+    "equals": "==",
+    "has": "contains",
 }
+
 
 def sign(comparator):
     if comparator in dict:
