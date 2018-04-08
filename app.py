@@ -135,7 +135,7 @@ def print_function(name, phrase, params):
     elif name is not None and phrase is None and params is None:
         # print result of a method call without parameters
         text = "the result of calling function '" + name + " without parameters"
-        res = api_instance.call_method(name)
+        res = api_instance.call_method(name, inline=True)
         api_instance.produce_output(res)
         msg = render_template('printing', stuff=text)
     elif name is not None and params is not None and phrase is None:
@@ -145,7 +145,7 @@ def print_function(name, phrase, params):
         for param in parameters:
             text += "'" + param + "'' "
         msg = render_template('printing', stuff=text)
-        res = api_instance.call_method(name, args=parameters)
+        res = api_instance.call_method(name, args=parameters, inline=True)
         api_instance.produce_output(res)
     return question(msg)
 
@@ -157,11 +157,11 @@ def create_var(name, function, value, params):
         msg = render_template('variable', value=value)
         return question(msg)
     if params is None:
-        method = api_instance.call_method(name)
+        method = api_instance.call_method(name, inline=True)
         api_instance.create_variable(name, method)
     else:
         parameters = params.split(" and ")
-        method = api_instance.call_method(name, parameters)
+        method = api_instance.call_method(name, parameters, inline=True)
         api_instance.create_variable(name, method)
 
 

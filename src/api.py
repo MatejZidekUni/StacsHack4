@@ -14,7 +14,6 @@
 
 from random import randint
 from src.Project import *
-# from src.CodeCreation.CodeCreation import *
 
 class API:
     command_queue = []
@@ -60,7 +59,6 @@ class API:
         proj_i = self.project_stack.index([elem for elem in self.project_stack if elem.name == name])
         proj = self.project_stack.pop(proj_i)
         self.project_stack.insert(0, proj)
-
 
     # creates new function
     # uses last project created or creates new project if none available
@@ -114,6 +112,8 @@ class API:
         the_code = CodeBlock()
         if len(self.project_stack) <= 0:
             self.new_project()
+        if type(whatever) is CodeLine:
+            whatever = whatever.to_string()
         the_code.make_me_a_print(whatever)
         self.project_stack[0].add_code(the_code)
         self.write()
@@ -128,8 +128,6 @@ class API:
             self.write()
         else:
             return res
-
-
 
     def create_variable(self, name, value):
         the_code = CodeBlock()
