@@ -15,7 +15,8 @@ class CodeLine:
     def to_string(self):
         return ("\t" * self.tab_level) + self.line_string
 
-## composed of other CodeBlocks or CodeLines
+
+# composed of other CodeBlocks or CodeLines
 class CodeBlock:
     # code content may be either CodeBlock or CodeLine
     code_content = []
@@ -29,14 +30,14 @@ class CodeBlock:
         self.tab_level = tabLevel
         self.keywords = []
 
-    def flatten_to_CodeLines(self):
+    def flatten_to_codelines(self):
         print("here")
         newList = []
         for item in self.code_content:
             if type(item) is CodeLine:
                 newList.append(item)
             else:
-                newList.extend(item.flatten_to_CodeLines)
+                newList.extend(item.flatten_to_codelines)
         return newList
 
     def flatten_keywords(self):
@@ -50,10 +51,10 @@ class CodeBlock:
 
 
     def write_all(self):
-        codeLines = self.flatten_to_CodeLines()
+        codeLines = self.flatten_to_codelines()
         for line in codeLines:
             print(line.to_string())
-            appendLine(line.to_string())
+            # appendLine(line.to_string())
 
     # makes a while loop. takes exitCond:string, internal:codeBlock
     def make_me_a_loop(self, cond, internal=None):
@@ -66,7 +67,7 @@ class CodeBlock:
         str_args = ""
         if args:
             for i in range(len(args)):
-                str_args += arg
+                str_args += args[i]
                 if i != len(args) - 1:
                     str_args += ", "
         res = CodeLine(method_name + "(" + str_args + ")", ["method_call"], self.tab_level)
@@ -87,7 +88,7 @@ class CodeBlock:
             internal.tab_level += 1
             self.code_content.append(internal)
 
-    def create_a_var(name, val):
+    def create_a_var(self, name, val):
         self.code_content.append(CodeLine(name + " = " + val, ["var"], self.tab_level))
 
     # so what i need is an ifCondition and thenCode
@@ -136,6 +137,6 @@ class Project:
         pass
 
     def write_all(self):
-        print("here2")
+        print("Called write_all in class project.")
         for code in self.all_code:
-            code.write_all
+            code.write_all()
