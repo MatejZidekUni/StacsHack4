@@ -53,7 +53,7 @@ class CodeBlock:
         codeLines = self.flatten_to_CodeLines()
         for line in codeLines:
             print(line.to_string())
-            appendLine(line.to_string())
+            # appendLine(line.to_string())
 
     # makes a while loop. takes exitCond:string, internal:codeBlock
     def make_me_a_loop(self, cond, internal=None):
@@ -138,4 +138,4 @@ class Project:
     def write_all(self):
         print("here2")
         for code in self.all_code:
-            code.write_all
+            code.write_all()
