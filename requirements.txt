@@ -15,7 +15,7 @@ MarkupSafe==1.0
 pycparser==2.18
 pyOpenSSL==17.0.0
 python-dateutil==2.7.2
-python-engineio==2.0.4
+python-engineio==3.8.2.post1
 python-socketio==1.9.0
 PyYAML==3.12
 requests==2.18.4
