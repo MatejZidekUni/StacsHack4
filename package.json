@@ -6,6 +6,6 @@
   "author": "Ryosuke Minami <ryosukem13@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "codemirror": "^5.36.0"
+    "codemirror": "^5.58.2"
   }
 }
